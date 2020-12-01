@@ -47,10 +47,10 @@ boxplot( who , main = 'Boxplot of Life Expectancy Data' )
 #fit regression model
 mdl <- lm( `Life expectancy`  ~  . , data = who )
 
-#Residual Analysis
+#Residual Analysis tut 4
 plot(mdl)
 
-#Residual vs. Index
+#Residual vs. Index tut 4
 plot( mdl$residuals)
 
 n <- nrow( who )

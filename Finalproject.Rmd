@@ -13,15 +13,50 @@ knitr::opts_chunk$set(
 )
 ```
 ## Abstract
+
 This project discusses the factors influencing life expentancy, health factors for 193 countrie based on the dataset provided by the Global Health Observatory(GHO) data repository under World Health Organiztion(WHO). In this project we consider data from 2000 to 2015 for 193 countries which focus on immunization factors, mortality factors, economic factors, social factors and other health related factors as well for further analysis.
 There are 22 columns and 2930 rows in the dataset file `Life Expectancy Data.csv`.
 
 ## Introduction
+
 Nowdays people's living standards have improved significantly in many ways. For example economy, education and medical level etc. These are the factors that may have impact on our life expentancy. However, which one of the factors are the most significant or which factors only has a small impact that can be ignored? Moreover, the developed and developing countries have different living standards and social phenomenon. Is the developing country has less life expentancy than developed country or vice versa? What are the reasons for the countries that have a lower life expentancy?
 
-We are describing the dataset by using viuslization, evaluating and fit different regression model to analyze the various factors that has impact on the life expentancy. 
+We are describing the dataset by using data viuslization, evaluating and fit different regression model to analyze the various factors that has impact on the life expentancy. 
 
 ## Data Description
+
+```{r}
+library( tidyverse )
+who <- read_csv( "Life Expectancy Data.csv" )
+
+#make sure  variables are formatted properly.
+str( who )
+
+#remove Country and status
+who <- who[,-c(1,3)]
+
+#scatter plot matrix using pairs() function
+
+#Looking at the  data
+head( who )
+summary( who )
+
+#graphical summaries
+boxplot( who , main = 'Boxplot of Life Expectancy Data' )
+
+#fit regression model
+mdl <- lm( `Life expectancy`  ~  . , data = who )
+
+#Residual Analysis
+plot(mdl)
+
+#Residual vs. Index
+plot( mdl$residuals)
+
+n <- nrow( who )
+plot( mdl$residuals[1:(n-1)] , mdl$residuals[2:n])
+```
+
 
 The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
 

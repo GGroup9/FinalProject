@@ -29,10 +29,18 @@ library(car)
 who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
 
 #make sure  variables are formatted properly.
-#str( who )
+str(who)
+
 
 #remove Country and status
 who <- who[,-c(1)]
+
+# exclude missing values (Remove Rows with Missing Data)
+complete.cases(who)
+who = who[complete.cases(who),]
+# 1289 observations were deleted due to missingness
+
+
 
 #scatter plot matrix using pairs() function
 
@@ -47,6 +55,7 @@ head(who)
 attach(who)
 model <- lm(Life.expectancy~., data = who)
 summary(model)
+avPlots(model)
 
 
 
@@ -58,9 +67,30 @@ plot( rstandard(model))
 
 n <- nrow( who )
 plot( model$residuals[1:(n-1)] , model$residuals[2:n])
+
+model_influence <- influence(model)
+sort(model_influence$hat, decreasing = TRUE)
+
+model_cook <- cooks.distance(model)
+sort(model_cook, decreasing = TRUE)
+
+#Stepwise Regression using AIC
+step(model, direction = 'both')
+# we get a final model that has 14 out of the 20 possible predictors.
 ```
-From the summary table, we see that the p-values for predictors like percentage.expenditure, Hepatitis.B, Measles, Polio, GDP, Population, thinness 1-19 years and thinness 5-9 years are high than alpha=0.05, which mean further investigation is
+1289 observations were deleted due to missingness.
+
+From the OLS summary table, we see that the p-values for predictors like percentage.expenditure, Hepatitis.B, Measles, Polio, GDP, Population, thinness 1-19 years and thinness 5-9 years are high than alpha=0.05, which mean further investigation is
 needed to determine whether these predictors are significant or not in predicting the life expectancy.
+
+Checked the diagonal of the hat matrix, only two observations have leverages higher than 0.2 , that may have the potential to be influential. However, given the large dataset, the rest of the observations have small leverages. Since none of these countries had large residuals, so we need to investigate a little more.
+
+For our data and model, no observation has cook's distance larger than 1.
+
+From stepwise regression, we get a final model that has 14 out of the 20 possible predictors.
+
+
+
 
 
 
@@ -73,6 +103,21 @@ The figure sizes have been customized so that you can easily put two images side
 plot(1:10)
 plot(10:1)
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 You can enable figure captions by `fig_caption: yes` in YAML:
 

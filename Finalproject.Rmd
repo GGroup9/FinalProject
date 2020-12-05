@@ -17,7 +17,7 @@ There are 22 columns and 2930 rows in the dataset file `Life Expectancy Data.csv
 
 ## Introduction
 
-Nowadays the living standards have improved significantly in many ways. Factors including economy, education and medical condition all have developed to a new stage after the Millennium. Previous researches did not include immunization factor and human development index when analyzing factors affecting life expectancy.That brought to our attention are immunization and human development index significant in influencing life expectancy. And, what other factors would actually affect life expectancy that were not included in the past studies. If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare? Furthermore, would personal habits and lifestyle have relationship with life expectancy? Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries? What are the potential causes for a country to have a low life expectancy.
+Nowadays the living standards have improved significantly in many ways. Factors including economy, education and medical condition all have developed to a new stage after the Millennium. Previous researches did not include immunization factor and human development index when analyzing factors affecting life expectancy.That brought to our attention are immunization and human development index significant in influencing life expectancy. And, what other factors would actually affect life expectancy that were not included in the past studies. If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare? Furthermore, would personal habits and lifestyle have relationship with life expectancy? Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries? What are the potential causes for a country to have a low life expectancy?
 
 
 ( These are the factors that may have impact on our life expectancy. However, which one of the factors are the most significant or which factors only has a small impact that can be ignored? Moreover, the developed and developing countries have different living standards and social phenomenon. Is the developing country has less life expectancy than developed country or vice versa? What are the reasons for the countries that have a lower life expectancy?
@@ -36,6 +36,15 @@ Economical factors contains Status (developing or developed), Percentage Expendi
 
 Social factors contains Alcohol (recorded per capita (15+) consumption), BMI (Average Body Mass Index of entire population), Thinness 1-19 Years (Prevalence of thinness among children and adolescents for Age 10 to 19), Thinness 5-9 Years (Prevalence of thinness among children for Age 5 to 9), Schooling (Number of years of Schooling).
 
+```{r}
+library(tidyverse)
+library(car)
+who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
+
+#Looking at the  data
+head(who)
+attach(who)
+```
 
 
 

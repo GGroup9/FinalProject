@@ -28,13 +28,17 @@ We are describing the dataset by using data visualization, evaluating and fit di
 
 Our dataset consists of 22 Columns and 2938 rows, including 20 predictors that are divided into 4 broad categories: Immunization related factors, Mortality factors, Economical factors and Social factors.
 
-Immunization related factors contains Hepatitis B (HepB immunization coverage among 1-year-old), Measles (number of reported cases per 1000 population), Polio (Pol3 immunization coverage among 1-year-old), Diphtheria (Diphtheria tetanus toxoid and pertussis, DTP3, immunization coverage among 1-year-old), HIV AIDS (Deaths per 1000 live births HIV/AIDS from 0 to 4 years old), 
+Immunization related factors contains Hepatitis B (HepB immunization coverage among 1-year-old), Measles (number of reported cases per 1000 population), Polio (Pol3 immunization coverage among 1-year-old), Diphtheria (Diphtheria tetanus toxoid and pertussis, DTP3, immunization coverage among 1-year-old), HIV AIDS (Deaths per 1000 live births HIV/AIDS from 0 to 4 years old).
 
-Mortality factors contains Adult Mortality (Adult Mortality Rates of both sexes), Infant Deaths (Number of Infant Deaths per 1000 population), Under Five Deaths (Number of under-five deaths per 1000 population), 
+Mortality factors contains Adult Mortality (Adult Mortality Rates of both sexes), Infant Deaths (Number of Infant Deaths per 1000 population), Under Five Deaths (Number of under-five deaths per 1000 population).
 
-Economical factors contains Status (developing or developed), Percentage Expenditure (Expenditure on health as a percentage of Gross Domestic Product per capita), Total Expenditure (General government expenditure on health as a percentage of total government expenditure), GDP (Gross Domestic Product per capita), Population (Population of the country)
+Economical factors contains Status (developing or developed), Percentage Expenditure (Expenditure on health as a percentage of Gross Domestic Product per capita), Total Expenditure (General government expenditure on health as a percentage of total government expenditure), GDP (Gross Domestic Product per capita), Population (Population of the country), Income Composition of Resources (Human Development Index in terms of income composition of resources).
 
-Social factors contains Alcohol (recorded per capita (15+) consumption), BMI (Average Body Mass Index of entire population), Thinness 1-19 Years () 
+Social factors contains Alcohol (recorded per capita (15+) consumption), BMI (Average Body Mass Index of entire population), Thinness 1-19 Years (Prevalence of thinness among children and adolescents for Age 10 to 19), Thinness 5-9 Years (Prevalence of thinness among children for Age 5 to 9), Schooling (Number of years of Schooling).
+
+
+
+
 
 ```{r}
 library(tidyverse)

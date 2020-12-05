@@ -32,20 +32,35 @@ Immunization related factors contains Hepatitis B (HepB immunization coverage am
 
 Mortality factors contains Adult Mortality (Adult Mortality Rates of both sexes), Infant Deaths (Number of Infant Deaths per 1000 population), Under Five Deaths (Number of under-five deaths per 1000 population).
 
-Economical factors contains Status (developing or developed), Percentage Expenditure (Expenditure on health as a percentage of Gross Domestic Product per capita), Total Expenditure (General government expenditure on health as a percentage of total government expenditure), GDP (Gross Domestic Product per capita), Population (Population of the country), Income Composition of Resources (Human Development Index in terms of income composition of resources).
+Economical factors contains Country, Status (developing or developed), Percentage Expenditure (Expenditure on health as a percentage of Gross Domestic Product per capita), Total Expenditure (General government expenditure on health as a percentage of total government expenditure), GDP (Gross Domestic Product per capita), Population (Population of the country), Income Composition of Resources (Human Development Index in terms of income composition of resources).
 
-Social factors contains Alcohol (recorded per capita (15+) consumption), BMI (Average Body Mass Index of entire population), Thinness 1-19 Years (Prevalence of thinness among children and adolescents for Age 10 to 19), Thinness 5-9 Years (Prevalence of thinness among children for Age 5 to 9), Schooling (Number of years of Schooling).
+Social factors contains Year (the year of the data), Alcohol (recorded per capita (15+) consumption), BMI (Average Body Mass Index of entire population), Thinness 1-19 Years (Prevalence of thinness among children and adolescents for Age 10 to 19), Thinness 5-9 Years (Prevalence of thinness among children for Age 5 to 9), Schooling (Number of years of Schooling).
+
+If we consider the Country predictor as a detailed subset of the Status predictor, we could remove the Country predictor and only focus on the developing and developed status for constructing a general idea regardless of a specific country. However, if we want to know the life expectancy of a specific country, we could include the specific country value from the Country predictor.
+
 
 ```{r}
 library(tidyverse)
 library(car)
 who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
-
 #Looking at the  data
 head(who)
 attach(who)
-```
+#remove Country since we are not focusing on specific countries in this research
+who <- who[,-c(1)]
 
+# exclude missing values (Remove Rows with Missing Data)
+who = who[complete.cases(who),]
+# 1289 observations were deleted
+
+model <- lm(Life.expectancy~., data = who)
+summary(model)
+avPlots(model)
+
+#check pairwise correlations
+cor(who[,-c(1,2)])
+```
+From the added variable plots, we can see that predictors like infant.deaths, percentage.expenditure, Measles, under.five.deaths, GDP, Population, thinness..1.19.years and thinness.5.9.years seem to have no significant linear relationship with life expectancy.
 
 
 

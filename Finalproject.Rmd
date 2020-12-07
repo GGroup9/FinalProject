@@ -180,7 +180,52 @@ z21 = (who$Schooling - mean(who$Schooling))/s21
 LifeSRModel<-lm(Life.expectancy_s~z_Year+z_Adult.Mortality+z_infant.deaths+z_Alcohol+z_percentage.expenditure+z_Hepatitis.B+z_Measles+z_BMI+z_under.five.deaths + z12 + z13 + z14 + z15 + z16 + z17 + z18 + z19 + z20 + z21 - 1  )
 summary(LifeSRModel)
 LifeSRModel$coefficients
+#Coefficients:
+#                          Estimate Std. Error t value Pr(>|t|)    
+#z_Year                   -0.060350   0.010731  -5.624 2.20e-08 ***
+#z_Adult.Mortality        -0.234136   0.013414 -17.455  < 2e-16 ***
+#z_infant.deaths           1.220016   0.145757   8.370  < 2e-16 ***
+#z_Alcohol                -0.045031   0.014339  -3.140  0.00172 ** 
+#z_percentage.expenditure  0.062125   0.035825   1.734  0.08309 .  
+#z_Hepatitis.B            -0.006774   0.012928  -0.524  0.60037    
+#z_Measles                -0.012693   0.012282  -1.033  0.30153    
+#z_BMI                     0.070855   0.013391   5.291 1.38e-07 ***
+#z_under.five.deaths      -1.234195   0.142298  -8.673  < 2e-16 ***
+#z12                       0.014449   0.013088   1.104  0.26978    
+#z13                       0.025121   0.010575   2.375  0.01764 *  
+#z14                       0.033220   0.014432   2.302  0.02147 *  
+#z15                      -0.308248   0.012218 -25.229  < 2e-16 ***
+#z16                       0.038486   0.036845   1.045  0.29639    
+#z17                      -0.005228   0.013903  -0.376  0.70694    
+#z18                      -0.001193   0.027504  -0.043  0.96541    
+#z19                      -0.028094   0.027466  -1.023  0.30653    
+#z20                       0.217914   0.017357  12.555  < 2e-16 ***
+#z21                       0.287996   0.018759  15.353  < 2e-16 ***
 
+#Life.expectancy_s and percentage.expenditure
+le <- lm( Life.expectancy_s ~ z_percentage.expenditure )
+summary(le)
+#Life.expectancy_s and Hepatitis.B
+lh <- lm( Life.expectancy_s ~ z_Hepatitis.B )
+summary(lh)
+#Life.expectancy_s and Measles
+lmea <- lm( Life.expectancy_s ~ z_Measles )
+summary(lmea)
+#Life.expectancy_s and Polio
+lp <- lm( Life.expectancy_s ~ z12 )
+summary(lp)
+#Life.expectancy_s and GDP
+lg <- lm( Life.expectancy_s ~ z16 )
+summary(lg)
+#Life.expectancy_s and Population
+lpo <- lm( Life.expectancy_s ~ z17)
+summary(lpo)
+#Life.expectancy_s and thinness..1.19.years
+lt1 <- lm( Life.expectancy_s ~ z18 )
+summary(lt1)
+#Life.expectancy_s and thinness.5.9.years
+lt5 <- lm( Life.expectancy_s ~ z19 )
+summary(lt5)
 
   
   

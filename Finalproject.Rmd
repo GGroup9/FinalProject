@@ -201,6 +201,9 @@ LifeSRModel$coefficients
 #z19                      -0.028094   0.027466  -1.023  0.30653    
 #z20                       0.217914   0.017357  12.555  < 2e-16 ***
 #z21                       0.287996   0.018759  15.353  < 2e-16 ***
+#Residual standard error: 0.009973 on 1630 degrees of freedom
+#Multiple R-squared:  0.8379,	Adjusted R-squared:  0.836 
+#F-statistic: 443.4 on 19 and 1630 DF,  p-value: < 2.2e-16
 
 #Life.expectancy_s and percentage.expenditure
 le <- lm( Life.expectancy_s ~ z_percentage.expenditure )
@@ -257,6 +260,8 @@ summary(lt5)
 # Estimate Std. Error t value Pr(>|t|)    
 #(Intercept)  1.817e-17  5.396e-04    0.00        1    
 #z19         -4.575e-01  2.191e-02  -20.88   <2e-16 ***
+
+#population remove from dataset 'who'
 
 
 plot(1:10)

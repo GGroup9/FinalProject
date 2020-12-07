@@ -130,7 +130,7 @@ summodel <-  summary(model)
 
 
 Due to different scaling in the dataset 'who' , it is difficult to compare regression coefficients because the magnitude of betaj reflects the units of measurement of the regressor xj.
-For this reason it is helpful to work with scaled resgressor and response variable.
+For this reason it is helpful to work with scaled regressor and response variable.
 Here we will use Unit Length Scaling:
 ```{r}
 #Life.expectancy and GDP
@@ -278,13 +278,13 @@ summary(LifeSRModel)
 modelO <- lm(Life.expectancy~Year+Status+Adult.Mortality+infant.deaths+Alcohol+percentage.expenditure+Hepatitis.B+Measles+BMI+under.five.deaths + Polio + Total.expenditure + Diphtheria + HIV.AIDS + GDP + thinness..1.19.years + thinness.5.9.years + Income.composition.of.resources + Schooling, data = who)
 summary(modelO)
 ```
-After remove the population predictor from the model, we find out the model contain the population and the model without population, their estimate coefficeint and R-squared does not have significant changes. Thus, we conclude that population does not affect the Life expentancy.
+After remove the population predictor from the model, we find out the model contain the population and the model without population, their estimate coefficient and R-squared does not have significant changes. Thus, we conclude that population does not affect the Life expectancy.
 
 
-Here we use stepwize to select validate variable:
+Here we use stepwise to select validate variable:
 ```{r}
-##stepwize
-#use stepwize method to complete variable selection
+##stepwise
+#use stepwise method to complete variable selection
 step(model, direction = 'both')
 
 newmodel = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
@@ -336,7 +336,7 @@ We removed 6 predictors from the model, since those predictors are not acting im
 From the plot, we can see that there are 4 outliers. They are point 1880, point 2306 point 1901 and point 1902.
 
 
-Our model contains 2 outliers, we will use robust regression to dampen the impact of highly inflential observations and also violations in model assumptions.
+Our model contains 2 outliers, we will use robust regression to dampen the impact of highly influential observations and also violations in model assumptions.
 Here we use Robust regression:
 ```{r}
 #There is potential outlier, so we use robust

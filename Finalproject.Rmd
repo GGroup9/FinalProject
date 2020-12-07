@@ -122,15 +122,86 @@ The figure sizes have been customized so that you can easily put two images side
 
 ```{r, fig.show='hold'}
 #checked the  model
+summodel <-  summary(model)
+#percentage.expenditure and Hepatitis.B and Measle and Polio and GDP and Population 
+#thinness..1.19.years  and thinness.5.9.years larger than 0.05
+
+#Life.expectancy and GDP
+gdp <- lm( Life.expectancy ~ GDP , data = who )
+summary(gdp)
+
+#unit length scalings
+s_Year<-sqrt(sum((who$Year-mean(who$Year))^2))
+#s_Status<-sqrt(sum((Status-mean(Status))^2))
+s_Adult.Mortality = sqrt(sum((who$Adult.Mortality-mean(who$Adult.Mortality))^2))
+s_infant.deaths<-sqrt(sum((who$infant.deaths-mean(who$infant.deaths))^2))
+s_Alcohol<-sqrt(sum((who$Alcohol-mean(who$Alcohol))^2))
+s_percentage.expenditure<-sqrt(sum((who$percentage.expenditure-mean(who$percentage.expenditure))^2))
+s_Hepatitis.B<-sqrt(sum((who$Hepatitis.B-mean(who$Hepatitis.B))^2))
+s_Measles<-sqrt(sum((who$Measles-mean(who$Measles))^2))
+s_BMI<-sqrt(sum((who$BMI-mean(who$BMI))^2))
+s_under.five.deaths<-sqrt(sum((who$under.five.deaths-mean(who$under.five.deaths))^2))
+s_Life.expectancy = sqrt(sum((who$Life.expectancy-mean(who$Life.expectancy))^2))
+
+s12  = sqrt(sum((who$Polio - mean(who$Polio))^2))
+s13  = sqrt(sum((who$Total.expenditure - mean(who$Total.expenditure))^2))
+s14  = sqrt(sum((who$Diphtheria - mean(who$Diphtheria))^2))
+s15  = sqrt(sum((who$HIV.AIDS - mean(who$HIV.AIDS))^2))
+s16  = sqrt(sum((who$GDP - mean(who$GDP))^2))
+s17  = sqrt(sum((who$Population - mean(who$Population))^2))
+s18  = sqrt(sum((who$thinness..1.19.years - mean(who$thinness..1.19.years))^2))
+s19  = sqrt(sum((who$thinness.5.9.years - mean(who$thinness.5.9.years))^2))
+s20  = sqrt(sum((who$Income.composition.of.resources -mean(who$Income.composition.of.resources))^2))
+s21  = sqrt(sum((who$Schooling - mean(who$Schooling))^2))
+
+z_Year<-(who$Year-mean(who$Year))/s_Year
+#z_Status<-(Status-mean(Status))/s_Status
+z_Adult.Mortality<-(who$Adult.Mortality-mean(who$Adult.Mortality))/s_Adult.Mortality
+z_infant.deaths<-(who$infant.deaths-mean(who$infant.deaths))/s_infant.deaths
+z_Alcohol<-(who$Alcohol-mean(who$Alcohol))/s_Alcohol
+z_percentage.expenditure<-(who$percentage.expenditure-mean(who$percentage.expenditure))/s_percentage.expenditure
+z_Hepatitis.B<-(who$Hepatitis.B-mean(who$Hepatitis.B))/s_Hepatitis.B
+z_Measles<-(who$Measles-mean(who$Measles))/s_Measles
+z_BMI<-(who$BMI-mean(who$BMI))/s_BMI
+z_under.five.deaths<-(who$under.five.deaths-mean(who$under.five.deaths))/s_under.five.deaths
+Life.expectancy_s<-(who$Life.expectancy-mean(who$Life.expectancy))/s_Life.expectancy
+
+z12 = (who$Polio - mean(who$Polio))/s12
+z13 = (who$Total.expenditure - mean(who$Total.expenditure))/s13
+z14 = (who$Diphtheria - mean(who$Diphtheria))/s14
+z15 = (who$HIV.AIDS - mean(who$HIV.AIDS))/s15
+z16 = (who$GDP - mean(who$GDP))/s16
+z17 = (who$Population - mean(who$Population))/s17
+z18 = (who$thinness..1.19.years - mean(who$thinness..1.19.years))/s18
+z19 = (who$thinness.5.9.years - mean(who$thinness.5.9.years))/s19
+z20 = (who$Income.composition.of.resources - mean(who$Income.composition.of.resources))/s20
+z21 = (who$Schooling - mean(who$Schooling))/s21
+
+LifeSRModel<-lm(Life.expectancy_s~z_Year+z_Adult.Mortality+z_infant.deaths+z_Alcohol+z_percentage.expenditure+z_Hepatitis.B+z_Measles+z_BMI+z_under.five.deaths + z12 + z13 + z14 + z15 + z16 + z17 + z18 + z19 + z20 + z21 - 1  )
+summary(LifeSRModel)
+LifeSRModel$coefficients
+
+
+  
+  
+#Life.expectancy and Population
+popu <- lm( Life.expectancy ~ Population , data = who )
+summary(popu)
+
+#Life.expectancy and thinness..1.19.years
+thin19 <- lm( Life.expectancy ~ thinness..1.19.years , data = who )
+summary(thin19)
+
+#Life.expectancy and thinness.5.9.years
+thin59 <- lm( Life.expectancy ~ thinness.5.9.years , data = who )
+summary(thin59)
 
 plot(1:10)
 plot(10:1)
 ```
 
 
-
-
-
+##Conclusion
 
 
 

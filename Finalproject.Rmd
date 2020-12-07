@@ -299,14 +299,37 @@ summary(newmodel)
 Then we do residual analysis on the new model generated. 
 ```{r}
 ## residual analysis ##
-plot(newmodel)
-#constant variance (if not good, use transformation of y)
-#The first plot of 
-#linearity (if not good, transformation of x)
 
-#outlier
+#Standardized Residuals vs. Index tut 4
+plot( rstandard(newmodel))
+#straight line around 0
+
+n <- nrow( who )
+plot( model$residuals[1:(n-1)] , model$residuals[2:n])
+#straight line, linear relationship
+```
+
+```{r}
+plot(newmodel)
+```
+constant variance (if not good, use transformation of y)
+The first plot (Residuals vs fitted) has an approximately straight line at 0, while more data points appear on the right. Thus the model has generally met constant variance assumption. 
+
+linearity (if not good, use transformation of x)
+The second plot (Normal Q-Q plot) has an approximately straight line, thus the model generally met the linearity assumption. 
+
+outlier
+The observations 1880, 2306, 2300, 1901, 1902, 2503 are potential outliers. 
+There's no point beyond cook's distance according to the leverage plot. 
+
+```{r}
 #leverage(cooks)
+newmodel_influence <- influence(newmodel)
+sort(newmodel_influence$hat, decreasing = TRUE)
+
 #influence
+newmodel_cook <- cooks.distance(newmodel)
+sort(newmodel_cook, decreasing = TRUE)
 
 ```
 We removed 6 predictors from the model, since those predictors are not acting important roles in our model fitting.

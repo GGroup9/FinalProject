@@ -359,6 +359,7 @@ summary(Rmodel)
 ## predict a new point
 
 
+
 plot(1:10)
 plot(10:1)
 ```

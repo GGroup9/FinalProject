@@ -220,12 +220,12 @@ LifeSRModel$coefficients
 
 After standardized and summary the model. We construct the hypothesis test:
 
-#hypothesis test
-#F test 
-#2.2e-16 < 0.05, reject H0, at least 1 predictor is useful. 
+hypothesis test
+F test 
+2.2e-16 < 0.05, reject H0, at least 1 predictor is useful. 
 
-#t test
-#for the predictors with p value > 0.05, we investigate them independently. 
+t test
+for the predictors with p value > 0.05, we investigate them independently. 
 
 Based on the hypothesis test, we conclude that z_percentage.expenditure , z_Hepatitis.B , z_Measles , Polio , GDP , Population , thinness..1.19.years and thinness.5.9.years has p-value larger than 0.05.
 

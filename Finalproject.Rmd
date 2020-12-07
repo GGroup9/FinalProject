@@ -325,9 +325,11 @@ summary(Rmodel)
 
 plot(Rmodel)
 ```
+We want to investigate if there is a huge change in significance of regressors. 
 percentage changed comparing with usual linear model fit:
+(use difference between coefficient of usual model and Robust model to devide coefficient of usual model)
 0.14, 0.40, 0.19, 0.05, 0.03, 0.12, 0.12, 0.04, 0.22, 0.05, 0.06, 0.08, 0.02, 0.07
-the intercept has largest change, while the StatusDeveloping coefficient has a 40% decrease in magnitude of slope, which makes its significance decreases. Thus,the same variables do appear significant when compared to the usual linear model fit except Status. 
+the intercept has largest change, while the StatusDeveloping coefficient has a 40% decrease in magnitude of slope, which makes its significance decreases. Thus,the same variables do appear significant when compared to the usual linear model fit except for Status. 
 
 After fitting the robust regression, the outlier 1880 is not in the plot anymore. Point 2306 , point 1901 and point 1902 are still potential outliers.
 

@@ -294,11 +294,14 @@ newmodel = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality +
     data = who)
 
 summary(newmodel)
+```
 
+Then we do residual analysis on the new model generated. 
+```{r}
 ## residual analysis ##
 plot(newmodel)
 #constant variance (if not good, use transformation of y)
-
+#The first plot of 
 #linearity (if not good, transformation of x)
 
 #outlier

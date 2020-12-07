@@ -190,31 +190,6 @@ LifeSRModel<-lm(Life.expectancy_s~z_Year+z_Adult.Mortality+z_infant.deaths+z_Alc
 ## variable selection ##
 summary(LifeSRModel)
 LifeSRModel$coefficients
-#Coefficients:
-#                          Estimate Std. Error t value Pr(>|t|)    
-#z_Year                   -0.060350   0.010731  -5.624 2.20e-08 ***
-#z_Adult.Mortality        -0.234136   0.013414 -17.455  < 2e-16 ***
-#z_infant.deaths           1.220016   0.145757   8.370  < 2e-16 ***
-#z_Alcohol                -0.045031   0.014339  -3.140  0.00172 ** 
-#z_percentage.expenditure  0.062125   0.035825   1.734  0.08309 .  
-#z_Hepatitis.B            -0.006774   0.012928  -0.524  0.60037    
-#z_Measles                -0.012693   0.012282  -1.033  0.30153    
-#z_BMI                     0.070855   0.013391   5.291 1.38e-07 ***
-#z_under.five.deaths      -1.234195   0.142298  -8.673  < 2e-16 ***
-#z12                       0.014449   0.013088   1.104  0.26978    
-#z13                       0.025121   0.010575   2.375  0.01764 *  
-#z14                       0.033220   0.014432   2.302  0.02147 *  
-#z15                      -0.308248   0.012218 -25.229  < 2e-16 ***
-#z16                       0.038486   0.036845   1.045  0.29639    
-#z17                      -0.005228   0.013903  -0.376  0.70694    
-#z18                      -0.001193   0.027504  -0.043  0.96541    
-#z19                      -0.028094   0.027466  -1.023  0.30653    
-#z20                       0.217914   0.017357  12.555  < 2e-16 ***
-#z21                       0.287996   0.018759  15.353  < 2e-16 ***
-#Residual standard error: 0.009973 on 1630 degrees of freedom
-#Multiple R-squared:  0.8379,	Adjusted R-squared:  0.836 
-#F-statistic: 443.4 on 19 and 1630 DF,  p-value: < 2.2e-16
-
 
 ```
 
@@ -347,29 +322,13 @@ Rmodel = rlm(formula = Life.expectancy ~ Year + Status + Adult.Mortality +
     data = who, psi = psi.huber)
 
 summary(Rmodel)
-#Coefficients:
-#                                Value    Std. Error t value 
-#(Intercept)                     272.5698  41.5919     6.5534
-#Year                             -0.1086   0.0208    -5.2278
-#StatusDeveloping                 -0.5367   0.3050    -1.7598
-#Adult.Mortality                  -0.0194   0.0009   -22.4861
-#infant.deaths                     0.0821   0.0091     9.0416
-#Alcohol                          -0.0996   0.0307    -3.2450
-#percentage.expenditure            0.0004   0.0001     7.5188
-#BMI                               0.0280   0.0054     5.1863
-#under.five.deaths                -0.0624   0.0067    -9.2397
-#Total.expenditure                 0.1123   0.0369     3.0432
-#Diphtheria                        0.0142   0.0041     3.4524
-#HIV.AIDS                         -0.4202   0.0163   -25.8149
-#thinness.5.9.years               -0.0562   0.0240    -2.3429
-#Income.composition.of.resources  10.7256   0.7597    14.1178
-#Schooling                         0.8434   0.0535    15.7651
-
-#percentage changed comparing with lm
-#0.14, 0.40, 
 
 plot(Rmodel)
 ```
+percentage changed comparing with usual linear model fit:
+0.14, 0.40, 0.19, 0.05, 0.03, 0.12, 0.12, 0.04, 0.22, 0.05, 0.06, 0.08, 0.02, 0.07
+the intercept has largest change, while the StatusDeveloping coefficient has a 40% decrease in magnitude of slope, which makes its significance decreases. Thus,the same variables do appear significant when compared to the usual linear model fit except Status. 
+
 After fitting the robust regression, the outlier 1880 is not in the plot anymore. Point 2306 , point 1901 and point 1902 are still potential outliers.
 
 

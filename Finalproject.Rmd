@@ -53,54 +53,22 @@ who <- who[,-c(1)]
 who = who[complete.cases(who),]
 # 1289 observations were deleted
 
+#fit regression model
 model <- lm(Life.expectancy~., data = who)
 summary(model)
 avPlots(model)
 
 #check pairwise correlations
 cor(who[,-c(1,2)])
+
 ```
 From the added variable plots, we can see that predictors like infant.deaths, percentage.expenditure, Measles, under.five.deaths, GDP, Population, thinness..1.19.years and thinness.5.9.years seem to have no significant linear relationship with life expectancy.
+From the pairwise correlation data, there are several variables collinear with each other (they have correlation close to 1). These highly collinearly related variable pairs are under.five.deaths and infant.deaths, GDP and percentage.expenditure, thinness.5.9.years and thinness..1.19.years.
 
 
 
 ```{r}
-library(tidyverse)
-library(car)
-who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
-
-#make sure  variables are formatted properly.
-str(who)
-
-
-#remove Country and status
-who <- who[,-c(1)]
-
-# exclude missing values (Remove Rows with Missing Data)
-complete.cases(who)
-who = who[complete.cases(who),]
-# 1289 observations were deleted due to missingness
-
-
-
-#scatter plot matrix using pairs() function
-
-#Looking at the  data
-head(who)
-# summary( who )
-
-#graphical summaries
-#boxplot( who , main = 'Boxplot of Life Expectancy Data' )
-
-#fit regression model
-attach(who)
-model <- lm(Life.expectancy~., data = who)
-summary(model)
-avPlots(model)
-
-
-
-#Residual Analysis tut 4
+#Residual Analysis
 plot(model)
 
 #Standardized Residuals vs. Index tut 4
@@ -129,7 +97,18 @@ step(model, direction = 'both')
 
 ## Method
 
-1289 observations were deleted due to missingness.
+To test if each predictor has linear relationship with life expectancy, we use t-test to investigate.
+H0: beta_j = 0
+H1: beta_j != 0
+test statistics: t0
+We reject H0 if p value > alpha=0.05. 
+
+summary(model)
+
+From the OLS summary table, we see that the p-values for percentage.expenditure, Hepatitis.B, Measles, Polio, GDP, Population, thinness 1-19 years and thinness 5-9 years are higher than alpha=0.05, 
+which means further investigation is needed to determine whether these predictors are significant or not in predicting the life expectancy.
+
+(1289 observations were deleted due to missingness.
 
 From the OLS summary table, we see that the p-values for predictors like percentage.expenditure, Hepatitis.B, Measles, Polio, GDP, Population, thinness 1-19 years and thinness 5-9 years are high than alpha=0.05, which mean further investigation is
 needed to determine whether these predictors are significant or not in predicting the life expectancy.
@@ -139,9 +118,11 @@ Checked the diagonal of the hat matrix, only two observations have leverages hig
 For our data and model, no observation has cook's distance larger than 1.
 From stepwise regression, we get a final model that has 14 out of the 20 possible predictors.
 
-The figure sizes have been customized so that you can easily put two images side-by-side. 
+The figure sizes have been customized so that you can easily put two images side-by-side. )
 
 ```{r, fig.show='hold'}
+#checked the  model
+
 plot(1:10)
 plot(10:1)
 ```

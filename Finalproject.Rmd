@@ -341,7 +341,7 @@ summary(Rmodel)
 #Income.composition.of.resources  10.7256   0.7597    14.1178
 #Schooling                         0.8434   0.0535    15.7651
 
-#percentage changed comparing with lm
+#percentage changed comparing with R
 #0.14, 0.40, 
 
 

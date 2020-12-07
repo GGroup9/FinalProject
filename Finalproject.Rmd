@@ -294,18 +294,18 @@ summary(modelO)
 #use stepwize method to complete variable selection
 step(model, direction = 'both')
 
-model = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
+newmodel = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
     infant.deaths + Alcohol + percentage.expenditure + BMI + 
     under.five.deaths + Total.expenditure + Diphtheria + HIV.AIDS + 
     thinness.5.9.years + Income.composition.of.resources + Schooling, 
     data = who)
 
-summary(model)
+summary(newmodel)
 
 
 
 ## residual analysis ##
-plot(model)
+plot(newmodel)
 #constant variance (if not good, use transformation of y)
 
 #linearity (if not good, transformation of x)

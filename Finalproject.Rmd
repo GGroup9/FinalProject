@@ -314,7 +314,7 @@ plot(model)
 #leverage(cooks)
 #influence
 
-#if there is potential outlier, we use robust
+#There is potential outlier, so we use robust
 #robust
 Rmodel = rlm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
     infant.deaths + Alcohol + percentage.expenditure + BMI + 
@@ -341,8 +341,22 @@ summary(Rmodel)
 #Income.composition.of.resources  10.7256   0.7597    14.1178
 #Schooling                         0.8434   0.0535    15.7651
 
-#percentage changed comparing with R
+#percentage changed comparing with lm
 #0.14, 0.40, 
+
+##Bootstrap
+
+
+## model validation ##
+#cross validation
+
+## confidence interval ##
+
+## prediction interval ##
+
+
+
+## predict a new point
 
 
 plot(1:10)

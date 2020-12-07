@@ -1,6 +1,6 @@
 ---
 title: "Final Project"
-author: "Zhaojin Zhu, Zhijia Ju , Yifei wang , Zhiyi Xie"
+author: "Zhaojin Zhu, Zhijia Ju , Yifei Wang , Zhiyi Xie"
 date: "2020/11/29"
 output: pdf_document
 ---

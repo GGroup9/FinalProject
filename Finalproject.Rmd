@@ -130,6 +130,9 @@ summodel <-  summary(model)
 gdp <- lm( Life.expectancy ~ GDP , data = who )
 summary(gdp)
 
+
+## standardize data using unit length scaling ##
+
 #unit length scalings
 s_Year<-sqrt(sum((who$Year-mean(who$Year))^2))
 #s_Status<-sqrt(sum((Status-mean(Status))^2))
@@ -178,6 +181,10 @@ z20 = (who$Income.composition.of.resources - mean(who$Income.composition.of.reso
 z21 = (who$Schooling - mean(who$Schooling))/s21
 
 LifeSRModel<-lm(Life.expectancy_s~z_Year+z_Adult.Mortality+z_infant.deaths+z_Alcohol+z_percentage.expenditure+z_Hepatitis.B+z_Measles+z_BMI+z_under.five.deaths + z12 + z13 + z14 + z15 + z16 + z17 + z18 + z19 + z20 + z21 - 1  )
+
+
+## variable selection ##
+
 summary(LifeSRModel)
 LifeSRModel$coefficients
 #Coefficients:
@@ -204,6 +211,14 @@ LifeSRModel$coefficients
 #Residual standard error: 0.009973 on 1630 degrees of freedom
 #Multiple R-squared:  0.8379,	Adjusted R-squared:  0.836 
 #F-statistic: 443.4 on 19 and 1630 DF,  p-value: < 2.2e-16
+
+
+##hypothesis test
+#F test 
+#2.2e-16 < 0.05, reject H0, at least 1 predictor is useful. 
+
+#t test
+#for the predictors with p value > 0.05, we investigate them independently. 
 
 #Life.expectancy_s and percentage.expenditure
 le <- lm( Life.expectancy_s ~ z_percentage.expenditure )
@@ -261,7 +276,73 @@ summary(lt5)
 #(Intercept)  1.817e-17  5.396e-04    0.00        1    
 #z19         -4.575e-01  2.191e-02  -20.88   <2e-16 ***
 
+
+#only population has p value > 0.05 when fitting simple linear regression line with life expectancy,
+#so coefficient of population is close to 0. Thus population is not strongly linearly related with life expectancy. We can remove population from the model then. 
+
 #population remove from dataset 'who'
+#with standardized data
+LifeSRModel<-lm(Life.expectancy_s~z_Year+z_Adult.Mortality+z_infant.deaths+z_Alcohol+z_percentage.expenditure+z_Hepatitis.B+z_Measles+z_BMI+z_under.five.deaths + z12 + z13 + z14 + z15 + z16 + z18 + z19 + z20 + z21 - 1  )
+summary(LifeSRModel)
+
+#with original data
+modelO <- lm(Life.expectancy~Year+Status+Adult.Mortality+infant.deaths+Alcohol+percentage.expenditure+Hepatitis.B+Measles+BMI+under.five.deaths + Polio + Total.expenditure + Diphtheria + HIV.AIDS + GDP + thinness..1.19.years + thinness.5.9.years + Income.composition.of.resources + Schooling, data = who)
+summary(modelO)
+
+
+##stepwize
+#use stepwize method to complete variable selection
+step(model, direction = 'both')
+
+model = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
+    infant.deaths + Alcohol + percentage.expenditure + BMI + 
+    under.five.deaths + Total.expenditure + Diphtheria + HIV.AIDS + 
+    thinness.5.9.years + Income.composition.of.resources + Schooling, 
+    data = who)
+
+summary(model)
+
+
+
+## residual analysis ##
+plot(model)
+#constant variance (if not good, use transformation of y)
+
+#linearity (if not good, transformation of x)
+
+#outlier
+#leverage(cooks)
+#influence
+
+#if there is potential outlier, we use robust
+#robust
+Rmodel = rlm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
+    infant.deaths + Alcohol + percentage.expenditure + BMI + 
+    under.five.deaths + Total.expenditure + Diphtheria + HIV.AIDS + 
+    thinness.5.9.years + Income.composition.of.resources + Schooling, 
+    data = who, psi = psi.huber)
+
+summary(Rmodel)
+#Coefficients:
+#                                Value    Std. Error t value 
+#(Intercept)                     272.5698  41.5919     6.5534
+#Year                             -0.1086   0.0208    -5.2278
+#StatusDeveloping                 -0.5367   0.3050    -1.7598
+#Adult.Mortality                  -0.0194   0.0009   -22.4861
+#infant.deaths                     0.0821   0.0091     9.0416
+#Alcohol                          -0.0996   0.0307    -3.2450
+#percentage.expenditure            0.0004   0.0001     7.5188
+#BMI                               0.0280   0.0054     5.1863
+#under.five.deaths                -0.0624   0.0067    -9.2397
+#Total.expenditure                 0.1123   0.0369     3.0432
+#Diphtheria                        0.0142   0.0041     3.4524
+#HIV.AIDS                         -0.4202   0.0163   -25.8149
+#thinness.5.9.years               -0.0562   0.0240    -2.3429
+#Income.composition.of.resources  10.7256   0.7597    14.1178
+#Schooling                         0.8434   0.0535    15.7651
+
+#percentage changed comparing with lm
+#0.14, 0.40, 
 
 
 plot(1:10)

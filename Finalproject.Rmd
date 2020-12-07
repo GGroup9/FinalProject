@@ -42,6 +42,7 @@ If we consider the Country predictor as a detailed subset of the Status predicto
 ```{r}
 library(tidyverse)
 library(car)
+library(MASS)
 who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
 #Looking at the  data
 head(who)
@@ -125,14 +126,18 @@ The figure sizes have been customized so that you can easily put two images side
 summodel <-  summary(model)
 #percentage.expenditure and Hepatitis.B and Measle and Polio and GDP and Population 
 #thinness..1.19.years  and thinness.5.9.years larger than 0.05
+```
 
+
+Due to different scaling in the dataset 'who' , it is difficult to compare regression coefficients because the magnitude of betaj reflects the units of measurement of the regressor xj.
+For this reason it is helpful to work with scaled resgressor and response variable.
+Here we will use Unit Length Scaling:
+```{r}
 #Life.expectancy and GDP
 gdp <- lm( Life.expectancy ~ GDP , data = who )
 summary(gdp)
 
-
 ## standardize data using unit length scaling ##
-
 #unit length scalings
 s_Year<-sqrt(sum((who$Year-mean(who$Year))^2))
 #s_Status<-sqrt(sum((Status-mean(Status))^2))
@@ -182,9 +187,7 @@ z21 = (who$Schooling - mean(who$Schooling))/s21
 
 LifeSRModel<-lm(Life.expectancy_s~z_Year+z_Adult.Mortality+z_infant.deaths+z_Alcohol+z_percentage.expenditure+z_Hepatitis.B+z_Measles+z_BMI+z_under.five.deaths + z12 + z13 + z14 + z15 + z16 + z17 + z18 + z19 + z20 + z21 - 1  )
 
-
 ## variable selection ##
-
 summary(LifeSRModel)
 LifeSRModel$coefficients
 #Coefficients:
@@ -213,13 +216,21 @@ LifeSRModel$coefficients
 #F-statistic: 443.4 on 19 and 1630 DF,  p-value: < 2.2e-16
 
 
-##hypothesis test
+```
+
+After standardized and summary the model. We construct the hypothesis test:
+
+#hypothesis test
 #F test 
 #2.2e-16 < 0.05, reject H0, at least 1 predictor is useful. 
 
 #t test
 #for the predictors with p value > 0.05, we investigate them independently. 
 
+Based on the hypothesis test, we conclude that z_percentage.expenditure , z_Hepatitis.B , z_Measles , Polio , GDP , Population , thinness..1.19.years and thinness.5.9.years has p-value larger than 0.05.
+
+Thus, we will use these 8 predictor to fit the SLM with Life.expectancy_s to see if they have relationships.
+```{r}
 #Life.expectancy_s and percentage.expenditure
 le <- lm( Life.expectancy_s ~ z_percentage.expenditure )
 summary(le)
@@ -276,10 +287,13 @@ summary(lt5)
 #(Intercept)  1.817e-17  5.396e-04    0.00        1    
 #z19         -4.575e-01  2.191e-02  -20.88   <2e-16 ***
 
+```
 
-#only population has p value > 0.05 when fitting simple linear regression line with life expectancy,
-#so coefficient of population is close to 0. Thus population is not strongly linearly related with life expectancy. We can remove population from the model then. 
+Conclusion:
+Based on the model we fitted, the population has p value > 0.05 when fitting simple linear regression line with life expectancy,so coefficient of population is close to 0. Thus population is not strongly linearly related with life expectancy. We can remove population from the model then. 
 
+Remove the population predictor from the model:
+```{r}
 #population remove from dataset 'who'
 #with standardized data
 LifeSRModel<-lm(Life.expectancy_s~z_Year+z_Adult.Mortality+z_infant.deaths+z_Alcohol+z_percentage.expenditure+z_Hepatitis.B+z_Measles+z_BMI+z_under.five.deaths + z12 + z13 + z14 + z15 + z16 + z18 + z19 + z20 + z21 - 1  )
@@ -288,24 +302,26 @@ summary(LifeSRModel)
 #with original data
 modelO <- lm(Life.expectancy~Year+Status+Adult.Mortality+infant.deaths+Alcohol+percentage.expenditure+Hepatitis.B+Measles+BMI+under.five.deaths + Polio + Total.expenditure + Diphtheria + HIV.AIDS + GDP + thinness..1.19.years + thinness.5.9.years + Income.composition.of.resources + Schooling, data = who)
 summary(modelO)
+```
+After remove the population predictor from the model, we find out the model contain the population and the model without population, their estimate coefficeint and R-squared does not have significant changes. Thus, we conclude that population does not affect the Life expentancy.
 
 
+Here we use stepwize to select validate variable:
+```{r}
 ##stepwize
 #use stepwize method to complete variable selection
 step(model, direction = 'both')
 
-model = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
+newmodel = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
     infant.deaths + Alcohol + percentage.expenditure + BMI + 
     under.five.deaths + Total.expenditure + Diphtheria + HIV.AIDS + 
     thinness.5.9.years + Income.composition.of.resources + Schooling, 
     data = who)
 
-summary(model)
-
-
+summary(newmodel)
 
 ## residual analysis ##
-plot(model)
+plot(newmodel)
 #constant variance (if not good, use transformation of y)
 
 #linearity (if not good, transformation of x)
@@ -314,6 +330,14 @@ plot(model)
 #leverage(cooks)
 #influence
 
+```
+We removed 6 predictors from the model, since those predictors are not acting important roles in our model fitting.
+From the plot, we can see that there are 4 outliers. They are point 1880, point 2306 point 1901 and point 1902.
+
+
+Our model contains 2 outliers, we will use robust regression to dampen the impact of highly inflential observations and also violations in model assumptions.
+Here we use Robust regression:
+```{r}
 #There is potential outlier, so we use robust
 #robust
 Rmodel = rlm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
@@ -344,9 +368,14 @@ summary(Rmodel)
 #percentage changed comparing with lm
 #0.14, 0.40, 
 
+plot(Rmodel)
+```
+After fitting the robust regression, the outlier 1880 is not in the plot anymore. Point 2306 , point 1901 and point 1902 are still potential outliers.
+
+
+```{r}
+
 ##Bootstrap
-
-
 ## model validation ##
 #cross validation
 
@@ -363,6 +392,8 @@ summary(Rmodel)
 plot(1:10)
 plot(10:1)
 ```
+
+
 
 
 ##Conclusion

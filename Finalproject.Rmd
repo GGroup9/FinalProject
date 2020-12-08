@@ -372,7 +372,7 @@ MAPE = MAE(preds, test_data$Life.expectancy)
 print(c(R.sq,RMSPE,MAPE))
 
 ```
-
+We can see that R.sq is quite near 1, which means the model fitted is nice, above 80% data points error are explained by the model. 
 
 
 ## Results

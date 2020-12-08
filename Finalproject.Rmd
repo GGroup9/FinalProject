@@ -14,15 +14,14 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Abstract 
-
+## Abstract
 
 This project discusses the factors influencing life expectancy, health factors for 193 countries based on the dataset provided by the Global Health Observatory(GHO) data repository under World Health Organization(WHO). In this project we consider data from 2000 to 2015 for 193 countries which focus on immunization factors, mortality factors, economic factors, social factors and other health related factors as well for further analysis. 
 There are 22 columns and 2930 rows in the dataset file `Life Expectancy Data.csv`.
 
 ## Introduction
 
-Nowadays the living standards have improved significantly in many ways. Factors including economy, education and medical condition all have developed to a new stage after the Millennium. Previous researches did not include immunization factor and human development index when analyzing factors affecting life expectancy.That brought to our attention are immunization and human development index significant in influencing life expectancy. And, what other factors would actually affect life expectancy that were not included in the past studies. If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare? Furthermore, would personal habits and lifestyle have relationship with life expectancy? Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries? What are the potential causes for a country to have a low life expectancy? We will describe the dataset by data visualization and analyze the various factors through different regression models to find out the significant predictors that has impact on the life expectancy. )
+Nowadays the living standards have improved significantly in many ways. Factors including economy, education and medical condition all have developed to a new stage after the Millennium. Previous researches did not include immunization factor and human development index when analyzing factors affecting life expectancy.That brought to our attention are immunization and human development index significant in influencing life expectancy. And, what other factors would actually affect life expectancy that were not included in the past studies. If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare? Furthermore, would personal habits and lifestyle have relationship with life expectancy? Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries? What are the potential causes for a country to have a low life expectancy? We will describe the dataset by data visualization and analyze the various factors through different regression models to find out the significant predictors that have impact on predicting the life expectancy. 
 
 ## Data Description
 
@@ -40,6 +39,9 @@ If we consider the Country predictor as a detailed subset of the Status predicto
 
 We would like to introduce one new additional data point into our dataset. The values for this unique data point is as follows. Country:China, Year:2015, Status:Developing, Life expectancy:74.2625, Adult Mortality:73.75, infant deaths: 294.875, Alcohol:4.182, percentage.expenditure: 78.48934709, Hepatitis.B: 80.4375, Measles: 65857.9375, BMI: 21.80625, under.five.deaths: 350, Polio: 93.6875, Total.expenditure: 4.918, Diphtheria: 93.3125, HIV.AIDS: 0.1, GDP: 2345.303158,
 Population: 321812.0625, thinness..1.19.years: 4.6375, thinness.5.9.years: 4.025, Income.composition.of.resources: 0.66025, Schooling: 11.4375. These values are calculated based on the average values for each predictor from 2000 to 2015 for the country of China. Our modified dataset now consists of 22 Columns and 2939 rows.
+
+From the added variable plots, we can see that predictors like infant.deaths, percentage.expenditure, Measles, under.five.deaths, GDP, Population, thinness..1.19.years and thinness.5.9.years seem to have no significant linear relationship with life expectancy.
+From the pairwise correlation data, there are several variables collinear with each other (they have correlation close to 1). These highly collinearly related variable pairs are under.five.deaths and infant.deaths, GDP and percentage.expenditure, thinness.5.9.years and thinness..1.19.years.
 
 
 

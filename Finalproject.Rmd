@@ -48,6 +48,7 @@ Population: 321812.0625, thinness..1.19.years: 4.6375, thinness.5.9.years: 4.025
 library(tidyverse)
 library(car)
 library(MASS)
+library(Greg)
 who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
 #Looking at the  data
 head(who)
@@ -371,6 +372,7 @@ After fitting the robust regression, the outlier 1880 is not in the plot anymore
 
 ```{r}
 ## confidence interval ##
+confint_robust( Rmodel , level = 0.9 )
 ```
 
 

@@ -53,6 +53,7 @@ who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
 head(who)
 attach(who)
 
+
 # introduce one new additional data point into our dataset
 china_new_data_point = data.frame("China", 2015, "Developing", 74.2625,73.75,	294.875	,4.182,	78.48934709	,80.4375,	65857.9375,	21.80625,	350	,93.6875,	4.918,	93.3125,	0.1,	2345.303158,	321812.0625,	4.6375,	4.025	,0.66025,	11.4375)
 
@@ -63,9 +64,11 @@ who = rbind(china_new_data_point,who)
 #remove Country since we are not focusing on specific countries in this research
 who <- who[,-c(1)]
 
+
 # exclude missing values (Remove Rows with Missing Data)
 who = who[complete.cases(who),]
 # 1289 observations were deleted
+# 1650 observations remaining
 
 #fit regression model
 model <- lm(Life.expectancy~., data = who)

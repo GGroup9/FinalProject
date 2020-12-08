@@ -322,7 +322,7 @@ plot( rstandard(newmodel))
 #straight line around 0
 
 n <- nrow( who )
-plot( model$residuals[1:(n-1)] , model$residuals[2:n])
+plot( newmodel$residuals[1:(n-1)] , newmodel$residuals[2:n])
 #straight line, linear relationship
 ```
 
@@ -377,7 +377,7 @@ After fitting the robust regression, the outlier 1880 is not in the plot anymore
 
 
 ```{r}
-
+##
 ## model validation ##
 
 #cross validation

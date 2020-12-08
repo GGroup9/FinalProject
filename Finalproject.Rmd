@@ -225,58 +225,34 @@ Thus, we will use these 8 predictor to fit the SLM with Life.expectancy_s to see
 #Life.expectancy_s and percentage.expenditure
 le <- lm( Life.expectancy_s ~ z_percentage.expenditure )
 summary(le)
-# Estimate Std. Error t value Pr(>|t|)    
-#(Intercept)              1.794e-17  5.536e-04    0.00        1    
-#z_percentage.expenditure 4.096e-01  2.248e-02   18.22   <2e-16 ***
 
 #Life.expectancy_s and Hepatitis.B
 lh <- lm( Life.expectancy_s ~ z_Hepatitis.B )
 summary(lh)
-# Estimate Std. Error t value Pr(>|t|)    
-#(Intercept)   1.608e-17  5.945e-04   0.000        1    
-#z_Hepatitis.B 1.999e-01  2.414e-02   8.281 2.49e-16 ***
 
 #Life.expectancy_s and Measles
 lmea <- lm( Life.expectancy_s ~ z_Measles )
 summary(lmea)
-#Estimate Std. Error t value Pr(>|t|)   
-#(Intercept)  1.804e-17  6.054e-04   0.000  1.00000   
-#z_Measles   -6.888e-02  2.458e-02  -2.802  0.00514 **
 
 #Life.expectancy_s and Polio
 lp <- lm( Life.expectancy_s ~ z12 )
 summary(lp)
-#Estimate Std. Error t value Pr(>|t|)    
-#(Intercept) 1.998e-17  5.734e-04    0.00        1    
-#z12         3.273e-01  2.328e-02   14.06   <2e-16 ***
 
 #Life.expectancy_s and GDP
 lg <- lm( Life.expectancy_s ~ z16 )
 summary(lg)
-#Estimate Std. Error t value Pr(>|t|)    
-#(Intercept) 1.788e-17  5.445e-04    0.00        1    
-#z16         4.413e-01  2.211e-02   19.96   <2e-16 ***
 
 #Life.expectancy_s and Population
 lpo <- lm( Life.expectancy_s ~ z17)
 summary(lpo)
-# Estimate Std. Error t value Pr(>|t|)
-#(Intercept)  1.787e-17  6.066e-04   0.000    1.000
-#z17         -2.230e-02  2.463e-02  -0.905    0.365
 
 #Life.expectancy_s and thinness..1.19.years
 lt1 <- lm( Life.expectancy_s ~ z18 )
 summary(lt1)
-# Estimate Std. Error t value Pr(>|t|)    
-#(Intercept)  2.020e-17  5.395e-04     0.0        1    
-#z18         -4.578e-01  2.191e-02   -20.9   <2e-16 ***
 
 #Life.expectancy_s and thinness.5.9.years
 lt5 <- lm( Life.expectancy_s ~ z19 )
 summary(lt5)
-# Estimate Std. Error t value Pr(>|t|)    
-#(Intercept)  1.817e-17  5.396e-04    0.00        1    
-#z19         -4.575e-01  2.191e-02  -20.88   <2e-16 ***
 
 ```
 
@@ -347,7 +323,7 @@ newmodel_cook <- cooks.distance(newmodel)
 sort(newmodel_cook, decreasing = TRUE)
 
 ```
-From the plot, we can see that there are 4 outliers. They are point 1880, point 2306 point 1901 and point 1902.
+
 
 
 Our model contains 2 outliers, we will use robust regression to dampen the impact of highly influential observations and also violations in model assumptions.

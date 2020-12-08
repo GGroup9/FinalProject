@@ -85,34 +85,6 @@ From the pairwise correlation data, there are several variables collinear with e
 
 
 
-```{r}
-#Residual Analysis
-plot(model)
-
-#Standardized Residuals vs. Index tut 4
-plot( rstandard(model))
-
-n <- nrow( who )
-plot( model$residuals[1:(n-1)] , model$residuals[2:n])
-
-model_influence <- influence(model)
-sort(model_influence$hat, decreasing = TRUE)
-
-model_cook <- cooks.distance(model)
-sort(model_cook, decreasing = TRUE)
-
-#Stepwise Regression using AIC
-step(model, direction = 'both')
-# we get a final model that has 14 out of the 20 possible predictors.
-```
-
-
-
-
-
-
-
-
 ## Method
 
 To test if each predictor has linear relationship with life expectancy, we use t-test to investigate.
@@ -316,23 +288,26 @@ leverage and influence
 hat matrix: H = X(X'X)^(-1)X'
 hii:diagonal of hat matrix
 If hii > 2p/n then the ith observation can be considered a leverage point.
-
-cook's distance
-Di = (ri^2/p)(hii/(1-hii))
-points with Di > 1 are considered to be influential.
-
+Here we will use influence() function , using the model object as it's only argument.
 ```{r}
 #leverage and influence
 2*ncol(who)/nrow(who)  #0.02545455
 newmodel_influence <- influence(newmodel)
 sort(newmodel_influence$hat, decreasing = TRUE)
+```
+Based on the result, there are 68 observations have leverages higher than 0.02545455 and should be looked at closer as they have the potneital to be influential. However, many observation even though larger than 0.02545455 but still very close to 0.02545455. Typically a point which has high leverage paired with a large residual it is likely to be influential. None of the observation had larger residuals, so we need to dig a little more.
 
+
+cook's distance
+Di = (ri^2/p)(hii/(1-hii))
+points with Di > 1 are considered to be influential.
+```{r}
 #cook's distance
 newmodel_cook <- cooks.distance(newmodel)
 sort(newmodel_cook, decreasing = TRUE)
 
 ```
-No leverage larger than 0.02545455
+We see that for our data and model we don't get any Di larger than 1. Thus, no observations are considered to be potential outliers.
 
 
 Our model contains 2 outliers, we will use robust regression to dampen the impact of highly influential observations and also violations in model assumptions.
@@ -376,26 +351,35 @@ confint_robust( Rmodel , level = 0.9 )
 ```
 
 
-```{r}
-## prediction interval ##
-```
 
-
-```{r}
-plot(1:10)
-plot(10:1)
-```
-
-
-```{r}
-
-```
 
 
 
 
 
 ##Conclusion
+
+In conclusion, we compare the 8 potential predictors considered to have no linear relationship with life expentancy. Thus, we use SLM to compare each predictors with life expentancy and we find out only population does not have linear relationships with life expentancy. After removing the population predictor, we compare the full model with reduced model and the reslut do not have significant changes. Thus,proof indicated population predictor do not have impact on our model. Moreover,we want to fit a better regression model, we used stepwise function and the result shows that there are 6 predictors (thinness..1.19.years,Population,Hepatitis.B,GDP,Measles,Polio) does not significant relationship with life expectancy. 
+
+1.If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare?
+
+We removed Hepatitis.B and Polio from the model and we can conclude that immunization factor do not significantly influencing the life expectancy. However, the Diphtheria, adult mortality, infant deaths, HIV/AIDS and percentage.expenditure have relationship with life expectancy. Thus we can conclude that lifespan can be improved if government spend more expenditure on healthcare.
+
+2.Would personal habits and lifestyle have relationship with life expectancy?
+
+The personal habits and lifestyle would have relationship with life expectancy, like the predictor Alcohol would have impact on human's life expectancy.
+
+
+3.Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries?
+
+Based on our model, we see that GDP do not have sigificant relationship with life expectancy, but the predictor income composition do have significant relationship wiht life expectancy. Economical factor also related to total expenditure and percentage.expenditure. Thus, we think the economical factor that assocaited with goverment and goverment expenditure would have significant effect on life expectancy. Moreover, we can conclude developing countries have lower life expectancy than developed contries, since the goverment in developed countries would have a better welfare for their people.
+
+
+4.What are the potential causes for a country to have a low life expectancy?
+
+We think educaiton is a potential causes for a country to have a lower life expectancy. As the country with weak education system would have less possibility to educate more excellent young people. Thus, they will have less professional doctors and researchers which lead to weaker healthcare system and less novel idea to develop their society.
+
+
 
 
 

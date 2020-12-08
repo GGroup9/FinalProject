@@ -14,7 +14,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Abstract
+## Abstract 
 
 
 This project discusses the factors influencing life expectancy, health factors for 193 countries based on the dataset provided by the Global Health Observatory(GHO) data repository under World Health Organization(WHO). In this project we consider data from 2000 to 2015 for 193 countries which focus on immunization factors, mortality factors, economic factors, social factors and other health related factors as well for further analysis. 

@@ -2,7 +2,12 @@
 title: "Final Project"
 author: "Zhaojin Zhu, Zhijia Ju, Yifei Wang, Zhiyi Xie"
 date: "2020/11/29"
-output: pdf_document
+linestretch: 1.5
+urcolor: blue
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -40,7 +45,6 @@ If we consider the Country predictor as a detailed subset of the Status predicto
 
 We would like to introduce one new additional data point into our dataset. The values for this unique data point is as follows. Country:China, Year:2015, Status:Developing, Life expectancy:74.2625, Adult Mortality:73.75, infant deaths: 294.875, Alcohol:4.182, percentage.expenditure: 78.48934709, Hepatitis.B: 80.4375, Measles: 65857.9375, BMI: 21.80625, under.five.deaths: 350, Polio: 93.6875, Total.expenditure: 4.918, Diphtheria: 93.3125, HIV.AIDS: 0.1, GDP: 2345.303158,
 Population: 321812.0625, thinness..1.19.years: 4.6375, thinness.5.9.years: 4.025, Income.composition.of.resources: 0.66025, Schooling: 11.4375. These values are calculated based on the average values for each predictor from 2000 to 2015 for the country of China. Our modified dataset now consists of 22 Columns and 2939 rows.
-
 
 
 
@@ -371,9 +375,7 @@ print(c(R.sq,RMSPE,MAPE))
 
 
 
-
-
-##Conclusion
+## Results
 
 In conclusion, we compare the 8 potential predictors considered to have no linear relationship with life expentancy. Thus, we use SLM to compare each predictors with life expentancy and we find out only population does not have linear relationships with life expentancy. After removing the population predictor, we compare the full model with reduced model and the reslut do not have significant changes. Thus,proof indicated population predictor do not have impact on our model. Moreover,we want to fit a better regression model, we used stepwise function and the result shows that there are 6 predictors (thinness..1.19.years,Population,Hepatitis.B,GDP,Measles,Polio) does not significant relationship with life expectancy. 
 Then we used residual analysis to find out that our new model(after removing the 6 predictors) have constant variance and linearity.Thus, we do not need transformation for our model. After the calculation on leverage and cook's distance, we find out that the cook's distance are all less than 1. Thus, we use Robust regression to fit our final model to dampen the impact of highly influential observations and also violations in model assumptions.
@@ -398,36 +400,5 @@ Based on our model, we see that GDP do not have sigificant relationship with lif
 We think educaiton is a potential causes for a country to have a lower life expectancy. As the country with weak education system would have less possibility to educate more excellent young people. Thus, they will have less professional doctors and researchers which lead to weaker healthcare system and less novel idea to develop their society.
 
 
-
-
-
-
-
-
-
-
-
-
-
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## Results
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
 ([via](https://twitter.com/hadleywickham/status/504368538874703872))
 
-## Conclusion

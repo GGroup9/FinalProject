@@ -295,6 +295,7 @@ newmodel = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality +
 
 summary(newmodel)
 ```
+We removed 6 predictors from the model, since those predictors are not acting important roles in our model fitting.
 
 Then we do residual analysis on the new model generated. 
 ```{r}
@@ -309,7 +310,6 @@ plot(newmodel)
 #influence
 
 ```
-We removed 6 predictors from the model, since those predictors are not acting important roles in our model fitting.
 From the plot, we can see that there are 4 outliers. They are point 1880, point 2306 point 1901 and point 1902.
 
 
@@ -339,23 +339,32 @@ After fitting the robust regression, the outlier 1880 is not in the plot anymore
 
 ```{r}
 
-##Bootstrap
 ## model validation ##
+
 #cross validation
 
+
+```
+
+
+
+```{r}
 ## confidence interval ##
+```
 
+
+```{r}
 ## prediction interval ##
+```
 
 
-
-## predict a new point
-
-
-
+```{r}
 plot(1:10)
 plot(10:1)
 ```
+
+
+
 
 
 

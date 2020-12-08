@@ -89,10 +89,10 @@ From the pairwise correlation data, there are several variables collinear with e
 ## Method
 
 To test if each predictor has linear relationship with life expectancy, we use t-test to investigate.
-H0: beta_j = 0
-H1: beta_j != 0
-test statistics: t0
-We reject H0 if p value > alpha=0.05. 
+$H0: beta_j = 0$
+$H1: beta_j != 0$
+test statistics: $t0$
+We reject H0 if $p value > alpha=0.05$ 
 
 summary(model)
 
@@ -227,7 +227,7 @@ summary(lt5)
 ```
 
 Conclusion:
-Based on the model we fitted, the population has p value > 0.05 when fitting simple linear regression line with life expectancy,so coefficient of population is close to 0. Thus population is not strongly linearly related with life expectancy. We can remove population from the model then. 
+Based on the model we fitted, the population has $p-value > 0.05$ when fitting simple linear regression line with life expectancy,so coefficient of population is close to 0. Thus population is not strongly linearly related with life expectancy. We can remove population from the model then. 
 
 Remove the population predictor from the model:
 ```{r}
@@ -289,9 +289,9 @@ The second plot (Normal Q-Q plot) has an approximately straight line, thus the m
 
 
 leverage and influence
-hat matrix: H = X(X'X)^(-1)X'
+hat matrix: $H = X(X'X)^(-1)X'$
 hii:diagonal of hat matrix
-If hii > 2p/n then the ith observation can be considered a leverage point.
+If $hii > 2p/n$ then the ith observation can be considered a leverage point.
 Here we will use influence() function , using the model object as it's only argument.
 ```{r}
 #leverage and influence
@@ -303,7 +303,7 @@ Based on the result, there are 68 observations have leverages higher than 0.0254
 
 
 cook's distance
-Di = (ri^2/p)(hii/(1-hii))
+$Di = (ri^2/p)(hii/(1-hii))$
 points with Di > 1 are considered to be influential.
 ```{r}
 #cook's distance

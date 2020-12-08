@@ -378,6 +378,7 @@ print(c(R.sq,RMSPE,MAPE,sd_RMSPE))
 ```
 We can see that R.sq is quite near 1, which means the model fitted is nice, above 80% data points error are explained by the model. 
 The RMSPE after standarization is around 0.40, which is fine but not enough close to 0. 
+Thus the model is generally valid. 
 
 
 ## Results

@@ -259,6 +259,12 @@ summary(newmodel)
 ```
 We removed 6 predictors from the model, since those predictors are not acting important roles in our model fitting.
 
+```{r}
+## confidence interval ##
+confint( newmodel , level = 0.9 )
+```
+
+
 Then we do residual analysis on the new model generated. 
 ```{r}
 ## residual analysis ##
@@ -337,7 +343,6 @@ the intercept has largest change, while the StatusDeveloping coefficient has a 4
 
 
 ```{r}
-##
 ## model validation ##
 
 #cross validation
@@ -363,16 +368,6 @@ MAPE = MAE(preds, test_data$Life.expectancy)
 print(c(R.sq,RMSPE,MAPE))
 
 ```
-
-
-
-```{r}
-## confidence interval ##
-confint_robust( Rmodel , level = 0.9 )
-```
-
-
-
 
 
 

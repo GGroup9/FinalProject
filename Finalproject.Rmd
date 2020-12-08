@@ -38,6 +38,11 @@ Social factors contains Year (the year of the data), Alcohol (recorded per capit
 
 If we consider the Country predictor as a detailed subset of the Status predictor, we could remove the Country predictor and only focus on the developing and developed status for constructing a general idea regardless of a specific country. However, if we want to know the life expectancy of a specific country, we could include the specific country value from the Country predictor.
 
+We would like to introduce one new additional data point into our dataset. The values for this unique data point is as follows. Country:China, Year:2015, Status:Developing, Life expectancy:74.2625, Adult Mortality:73.75, infant deaths: 294.875, Alcohol:4.182, percentage.expenditure: 78.48934709, Hepatitis.B: 80.4375, Measles: 65857.9375, BMI: 21.80625, under.five.deaths: 350, Polio: 93.6875, Total.expenditure: 4.918, Diphtheria: 93.3125, HIV.AIDS: 0.1, GDP: 2345.303158,
+Population: 321812.0625, thinness..1.19.years: 4.6375, thinness.5.9.years: 4.025, Income.composition.of.resources: 0.66025, Schooling: 11.4375. These values are calculated based on the values from 2000 to 2015. Our modified dataset now consists of 22 Columns and 2939 rows.
+
+
+
 
 ```{r}
 library(tidyverse)
@@ -47,12 +52,23 @@ who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
 #Looking at the  data
 head(who)
 attach(who)
+
+
+# introduce one new additional data point into our dataset
+china_new_data_point = data.frame("China", 2015, "Developing", 74.2625,73.75,	294.875	,4.182,	78.48934709	,80.4375,	65857.9375,	21.80625,	350	,93.6875,	4.918,	93.3125,	0.1,	2345.303158,	321812.0625,	4.6375,	4.025	,0.66025,	11.4375)
+
+names(china_new_data_point) = c("Country","Year","Status","Life.expectancy","Adult.Mortality","infant.deaths","Alcohol","percentage.expenditure","Hepatitis.B","Measles" , "BMI" ,"under.five.deaths" ,"Polio","Total.expenditure","Diphtheria" , "HIV.AIDS","GDP","Population", "thinness..1.19.years", "thinness.5.9.years","Income.composition.of.resources","Schooling")
+
+who = rbind(china_new_data_point,who)
+
 #remove Country since we are not focusing on specific countries in this research
 who <- who[,-c(1)]
+
 
 # exclude missing values (Remove Rows with Missing Data)
 who = who[complete.cases(who),]
 # 1289 observations were deleted
+# 1650 observations remaining
 
 #fit regression model
 model <- lm(Life.expectancy~., data = who)
@@ -130,7 +146,7 @@ summodel <-  summary(model)
 
 
 Due to different scaling in the dataset 'who' , it is difficult to compare regression coefficients because the magnitude of betaj reflects the units of measurement of the regressor xj.
-For this reason it is helpful to work with scaled resgressor and response variable.
+For this reason it is helpful to work with scaled regressor and response variable.
 Here we will use Unit Length Scaling:
 ```{r}
 #Life.expectancy and GDP
@@ -278,13 +294,13 @@ summary(LifeSRModel)
 modelO <- lm(Life.expectancy~Year+Status+Adult.Mortality+infant.deaths+Alcohol+percentage.expenditure+Hepatitis.B+Measles+BMI+under.five.deaths + Polio + Total.expenditure + Diphtheria + HIV.AIDS + GDP + thinness..1.19.years + thinness.5.9.years + Income.composition.of.resources + Schooling, data = who)
 summary(modelO)
 ```
-After remove the population predictor from the model, we find out the model contain the population and the model without population, their estimate coefficeint and R-squared does not have significant changes. Thus, we conclude that population does not affect the Life expentancy.
+After remove the population predictor from the model, we find out the model contain the population and the model without population, their estimate coefficient and R-squared does not have significant changes. Thus, we conclude that population does not affect the Life expectancy.
 
 
-Here we use stepwize to select validate variable:
+Here we use stepwise to select validate variable:
 ```{r}
-##stepwize
-#use stepwize method to complete variable selection
+##stepwise
+#use stepwise method to complete variable selection
 step(model, direction = 'both')
 
 newmodel = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
@@ -334,7 +350,7 @@ We removed 6 predictors from the model, since those predictors are not acting im
 From the plot, we can see that there are 4 outliers. They are point 1880, point 2306 point 1901 and point 1902.
 
 
-Our model contains 2 outliers, we will use robust regression to dampen the impact of highly inflential observations and also violations in model assumptions.
+Our model contains 2 outliers, we will use robust regression to dampen the impact of highly influential observations and also violations in model assumptions.
 Here we use Robust regression:
 ```{r}
 #There is potential outlier, so we use robust

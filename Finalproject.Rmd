@@ -49,6 +49,7 @@ library(tidyverse)
 library(car)
 library(MASS)
 library(Greg)
+library(caret)
 who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
 #Looking at the  data
 head(who)
@@ -340,7 +341,26 @@ the intercept has largest change, while the StatusDeveloping coefficient has a 4
 ## model validation ##
 
 #cross validation
+set.seed(123)
+nsamp = ceiling(0.8*length(who$Life.expectancy))
+training_samps = sample(c(1:length(who$Life.expectancy)), nsamp)
+training_samps = sort(training_samps)
+train_data = who[training_samps, ]
+test_data = who[-training_samps, ]
 
+
+train_mdl = lm(formula = Life.expectancy ~ Year + Status + Adult.Mortality + 
+                 infant.deaths + Alcohol + percentage.expenditure + BMI + 
+                 under.five.deaths + Total.expenditure + Diphtheria + HIV.AIDS + 
+                 thinness.5.9.years + Income.composition.of.resources + Schooling, 
+               data = train_data)
+
+preds = predict(train_mdl, test_data)
+
+R.sq = R2(preds, test_data$Life.expectancy)
+RMSPE = RMSE(preds, test_data$Life.expectancy)
+MAPE = MAE(preds, test_data$Life.expectancy)
+print(c(R.sq,RMSPE,MAPE))
 
 ```
 

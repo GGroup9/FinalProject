@@ -127,9 +127,6 @@ which means further investigation is needed to determine whether these predictor
 
 (1289 observations were deleted due to missingness.
 
-From the OLS summary table, we see that the p-values for predictors like percentage.expenditure, Hepatitis.B, Measles, Polio, GDP, Population, thinness 1-19 years and thinness 5-9 years are high than alpha=0.05, which mean further investigation is
-needed to determine whether these predictors are significant or not in predicting the life expectancy.
-
 Checked the diagonal of the hat matrix, only two observations have leverages higher than 0.2 , that may have the potential to be influential. However, given the large dataset, the rest of the observations have small leverages. Since none of these countries had large residuals, so we need to investigate a little more.
 
 For our data and model, no observation has cook's distance larger than 1.

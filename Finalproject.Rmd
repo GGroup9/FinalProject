@@ -22,12 +22,7 @@ There are 22 columns and 2930 rows in the dataset file `Life Expectancy Data.csv
 
 ## Introduction
 
-Nowadays the living standards have improved significantly in many ways. Factors including economy, education and medical condition all have developed to a new stage after the Millennium. Previous researches did not include immunization factor and human development index when analyzing factors affecting life expectancy.That brought to our attention are immunization and human development index significant in influencing life expectancy. And, what other factors would actually affect life expectancy that were not included in the past studies. If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare? Furthermore, would personal habits and lifestyle have relationship with life expectancy? Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries? What are the potential causes for a country to have a low life expectancy?
-
-
-( These are the factors that may have impact on our life expectancy. However, which one of the factors are the most significant or which factors only has a small impact that can be ignored? Moreover, the developed and developing countries have different living standards and social phenomenon. Is the developing country has less life expectancy than developed country or vice versa? What are the reasons for the countries that have a lower life expectancy?
-
-We are describing the dataset by using data visualization, evaluating and fit different regression model to analyze the various factors that has impact on the life expectancy. )
+Nowadays the living standards have improved significantly in many ways. Factors including economy, education and medical condition all have developed to a new stage after the Millennium. Previous researches did not include immunization factor and human development index when analyzing factors affecting life expectancy.That brought to our attention are immunization and human development index significant in influencing life expectancy. And, what other factors would actually affect life expectancy that were not included in the past studies. If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare? Furthermore, would personal habits and lifestyle have relationship with life expectancy? Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries? What are the potential causes for a country to have a low life expectancy? We will describe the dataset by data visualization and analyze the various factors through different regression models to find out the significant predictors that has impact on the life expectancy. )
 
 ## Data Description
 
@@ -60,9 +55,14 @@ attach(who)
 
 
 # introduce one new additional data point into our dataset
-china_new_data_point = data.frame("China", 2015, "Developing", 74.2625,73.75,	294.875	,4.182,	78.48934709	,80.4375,	65857.9375,	21.80625,	350	,93.6875,	4.918,	93.3125,	0.1,	2345.303158,	321812.0625,	4.6375,	4.025	,0.66025,	11.4375)
+china_new_data_point = data.frame("China", 2015, "Developing", 74.2625,73.75,	294.875	,4.182,	
+ 78.48934709	,80.4375,	65857.9375,	21.80625,	350	,93.6875,	4.918,	93.3125,	0.1,	2345.303158,
+ 321812.0625,	4.6375,	4.025	,0.66025,	11.4375)
 
-names(china_new_data_point) = c("Country","Year","Status","Life.expectancy","Adult.Mortality","infant.deaths","Alcohol","percentage.expenditure","Hepatitis.B","Measles" , "BMI" ,"under.five.deaths" ,"Polio","Total.expenditure","Diphtheria" , "HIV.AIDS","GDP","Population", "thinness..1.19.years", "thinness.5.9.years","Income.composition.of.resources","Schooling")
+names(china_new_data_point) = c("Country","Year","Status","Life.expectancy","Adult.Mortality",
+ "infant.deaths","Alcohol","percentage.expenditure","Hepatitis.B","Measles" , "BMI" ,
+ "under.five.deaths" ,"Polio","Total.expenditure","Diphtheria" , "HIV.AIDS","GDP","Population",
+ "thinness..1.19.years", "thinness.5.9.years","Income.composition.of.resources","Schooling")
 
 who = rbind(china_new_data_point,who)
 
@@ -413,5 +413,5 @@ Based on our model, we see that GDP do not have sigificant relationship with lif
 We think educaiton is a potential causes for a country to have a lower life expectancy. As the country with weak education system would have less possibility to educate more excellent young people. Thus, they will have less professional doctors and researchers which lead to weaker healthcare system and less novel idea to develop their society.
 
 
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+
 

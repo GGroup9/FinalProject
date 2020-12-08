@@ -384,6 +384,7 @@ Thus the model is generally valid.
 In conclusion, we compare the 8 potential predictors considered to have no linear relationship with life expectancy. Thus, we use SLM to compare each predictors with life expectancy and we find out only population does not have linear relationships with life expectancy. After removing the population predictor, we compare the full model with the reduced model and the result does not have significant changes. Thus,proof indicated population predictor do not have impact on our model. Moreover,we want to fit a better regression model, we used stepwise function and the result shows that there are 6 predictors (thinness..1.19.years,Population,Hepatitis.B,GDP,Measles,Polio) does not significant relationship with life expectancy. 
 Then we used residual analysis to find out that our new model(after removing the 6 predictors) have constant variance and linearity.Thus, we do not need transformation for our model. After the calculation on leverage and cook's distance, we find out that the cook's distance are all less than 1. Thus, we use Robust regression to fit our final model to dampen the impact of highly influential observations and also violations in model assumptions.
 
+## Conclusion
 
 1.If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare?
 
@@ -403,6 +404,8 @@ Based on our model, we see that GDP do not have significant relationship with li
 
 We think education is a potential causes for a country to have a lower life expectancy. As the country with weak education system would have less possibility to educate more excellent young people. Thus, they will have less professional doctors and researchers which lead to weaker healthcare system and less novel idea to develop their society.
 
+
+## Appendix
 
 
 

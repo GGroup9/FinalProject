@@ -129,7 +129,6 @@ which means further investigation is needed to determine whether these predictor
 
 Checked the diagonal of the hat matrix, only two observations have leverages higher than 0.2 , that may have the potential to be influential. However, given the large dataset, the rest of the observations have small leverages. Since none of these countries had large residuals, so we need to investigate a little more.
 
-For our data and model, no observation has cook's distance larger than 1.
 From stepwise regression, we get a final model that has 14 out of the 20 possible predictors.
 
 The figure sizes have been customized so that you can easily put two images side-by-side. )
@@ -310,17 +309,29 @@ outlier
 The observations 1880, 2306, 2300, 1901, 1902, 2503 are potential outliers. 
 There's no point beyond cook's distance according to the leverage plot. 
 
+
+
+leverage and influence
+hat matrix: H = X(X'X)^(-1)X'
+hii:diagonal of hat matrix
+If hii > 2p/n then the ith observation can be considered a leverage point.
+
+cook's distance
+Di = (ri^2/p)(hii/(1-hii))
+points with Di > 1 are considered to be influential.
+
 ```{r}
-#leverage(cooks)
+#leverage and influence
+2*ncol(who)/nrow(who)  #0.02545455
 newmodel_influence <- influence(newmodel)
 sort(newmodel_influence$hat, decreasing = TRUE)
 
-#influence
+#cook's distance
 newmodel_cook <- cooks.distance(newmodel)
 sort(newmodel_cook, decreasing = TRUE)
 
 ```
-
+No leverage larger than 0.02545455
 
 
 Our model contains 2 outliers, we will use robust regression to dampen the impact of highly influential observations and also violations in model assumptions.

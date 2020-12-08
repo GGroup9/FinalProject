@@ -307,9 +307,7 @@ plot( rstandard(newmodel))
 n <- nrow( who )
 plot( model$residuals[1:(n-1)] , model$residuals[2:n])
 #straight line, linear relationship
-```
 
-```{r}
 plot(newmodel)
 ```
 constant variance (if not good, use transformation of y)

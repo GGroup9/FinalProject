@@ -2,12 +2,13 @@
 title: "Final Project"
 author: "Zhaojin Zhu, Zhijia Ju, Yifei Wang, Zhiyi Xie"
 date: "2020/11/29"
-linestretch: 1.5
-urcolor: blue
 output:
-  pdf_document: default
+  word_document: default
   html_document:
     df_print: paged
+  pdf_document: default
+urcolor: blue
+linestretch: 1.5
 ---
 
 ```{r setup, include=FALSE}

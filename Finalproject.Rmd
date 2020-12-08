@@ -375,7 +375,7 @@ After fitting the robust regression, the outlier 1880 is not in the plot anymore
 
 
 ```{r}
-
+##
 ## model validation ##
 
 #cross validation

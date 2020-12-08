@@ -87,8 +87,6 @@ avPlots(model)
 cor(who[,-c(1,2)])
 
 ```
-From the added variable plots, we can see that predictors like infant.deaths, percentage.expenditure, Measles, under.five.deaths, GDP, Population, thinness..1.19.years and thinness.5.9.years seem to have no significant linear relationship with life expectancy.
-From the pairwise correlation data, there are several variables collinear with each other (they have correlation close to 1). These highly collinearly related variable pairs are under.five.deaths and infant.deaths, GDP and percentage.expenditure, thinness.5.9.years and thinness..1.19.years.
 
 
 
@@ -100,18 +98,9 @@ $H1: beta_j != 0$
 test statistics: $t0$
 We reject H0 if $p value > alpha=0.05$ 
 
-summary(model)
+From the OLS summary table, we see that the p-values for percentage.expenditure, Hepatitis.B, Measles, Polio, GDP, Population, thinness 1-19 years and thinness 5-9 years are higher than alpha=0.05, which means further investigation is needed to determine whether these predictors are significant or not in predicting the life expectancy. Will checked the diagonal of the hat matrix, only two observations have leverages higher than 0.2 , that may have the potential to be influential. However, given the large dataset, the rest of the observations have small leverages. Since none of these observations had large residuals, so we need to investigate a little more.
 
-From the OLS summary table, we see that the p-values for percentage.expenditure, Hepatitis.B, Measles, Polio, GDP, Population, thinness 1-19 years and thinness 5-9 years are higher than alpha=0.05, 
-which means further investigation is needed to determine whether these predictors are significant or not in predicting the life expectancy.
-
-(1289 observations were deleted due to missingness.
-
-Checked the diagonal of the hat matrix, only two observations have leverages higher than 0.2 , that may have the potential to be influential. However, given the large dataset, the rest of the observations have small leverages. Since none of these countries had large residuals, so we need to investigate a little more.
-
-From stepwise regression, we get a final model that has 14 out of the 20 possible predictors.
-
-The figure sizes have been customized so that you can easily put two images side-by-side. )
+From stepwise regression, we get a final model that has 14 out of the 20 possible predictors. The figure sizes have been customized so that it's easily to put two images side-by-side.
 
 ```{r, fig.show='hold'}
 #checked the  model
@@ -121,8 +110,7 @@ summodel <-  summary(model)
 ```
 
 
-Due to different scaling in the dataset 'who' , it is difficult to compare regression coefficients because the magnitude of betaj reflects the units of measurement of the regressor xj.
-For this reason it is helpful to work with scaled regressor and response variable.
+Due to different scaling in the dataset 'who' , it is difficult to compare regression coefficients because the magnitude of betaj reflects the units of measurement of the regressor xj. For this reason it is helpful to work with the scaled regressors and response variable.
 Here we will use Unit Length Scaling:
 ```{r}
 #Life.expectancy and GDP
@@ -342,7 +330,7 @@ plot(Rmodel)
 ```
 We want to investigate if there is a huge change in significance of regressors. 
 percentage changed comparing with usual linear model fit:
-(use difference between coefficient of usual model and Robust model to devide coefficient of usual model)
+(use difference between coefficient of usual model and Robust model to divide coefficient of usual model)
 0.14, 0.40, 0.19, 0.05, 0.03, 0.12, 0.12, 0.04, 0.22, 0.05, 0.06, 0.08, 0.02, 0.07
 the intercept has largest change, while the StatusDeveloping coefficient has a 40% decrease in magnitude of slope, which makes its significance decreases. Thus,the same variables do appear significant when compared to the usual linear model fit except for Status. 
 
@@ -387,13 +375,13 @@ print(c(R.sq,RMSPE,MAPE,sd_RMSPE))
 
 ```
 We can see that R.sq is quite near 1, which means the model fitted is nice, above 80% data points error are explained by the model. 
-The RMSPE after standarization is around 0.40, which is fine but not enough close to 0. 
+The RMSPE after standardization is around 0.40, which is fine but not enough close to 0. 
 Thus the model is generally valid. 
 
 
 ## Results
 
-In conclusion, we compare the 8 potential predictors considered to have no linear relationship with life expentancy. Thus, we use SLM to compare each predictors with life expentancy and we find out only population does not have linear relationships with life expentancy. After removing the population predictor, we compare the full model with reduced model and the reslut do not have significant changes. Thus,proof indicated population predictor do not have impact on our model. Moreover,we want to fit a better regression model, we used stepwise function and the result shows that there are 6 predictors (thinness..1.19.years,Population,Hepatitis.B,GDP,Measles,Polio) does not significant relationship with life expectancy. 
+In conclusion, we compare the 8 potential predictors considered to have no linear relationship with life expectancy. Thus, we use SLM to compare each predictors with life expectancy and we find out only population does not have linear relationships with life expectancy. After removing the population predictor, we compare the full model with the reduced model and the result does not have significant changes. Thus,proof indicated population predictor do not have impact on our model. Moreover,we want to fit a better regression model, we used stepwise function and the result shows that there are 6 predictors (thinness..1.19.years,Population,Hepatitis.B,GDP,Measles,Polio) does not significant relationship with life expectancy. 
 Then we used residual analysis to find out that our new model(after removing the 6 predictors) have constant variance and linearity.Thus, we do not need transformation for our model. After the calculation on leverage and cook's distance, we find out that the cook's distance are all less than 1. Thus, we use Robust regression to fit our final model to dampen the impact of highly influential observations and also violations in model assumptions.
 
 
@@ -408,12 +396,12 @@ The personal habits and lifestyle would have relationship with life expectancy, 
 
 3.Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries?
 
-Based on our model, we see that GDP do not have sigificant relationship with life expectancy, but the predictor income composition do have significant relationship wiht life expectancy. Economical factor also related to total expenditure and percentage.expenditure. Thus, we think the economical factor that assocaited with goverment and goverment expenditure would have significant effect on life expectancy. Moreover, we can conclude developing countries have lower life expectancy than developed contries, since the goverment in developed countries would have a better welfare for their people.
+Based on our model, we see that GDP do not have significant relationship with life expectancy, but the predictor income composition do have significant relationship with life expectancy. Economical factor also related to total expenditure and percentage.expenditure. Thus, we think the economical factor that associated with government and government expenditure would have significant effect on life expectancy. Moreover, we can conclude developing countries have lower life expectancy than developed countries, since the government in developed countries would have a better welfare for their people.
 
 
 4.What are the potential causes for a country to have a low life expectancy?
 
-We think educaiton is a potential causes for a country to have a lower life expectancy. As the country with weak education system would have less possibility to educate more excellent young people. Thus, they will have less professional doctors and researchers which lead to weaker healthcare system and less novel idea to develop their society.
+We think education is a potential causes for a country to have a lower life expectancy. As the country with weak education system would have less possibility to educate more excellent young people. Thus, they will have less professional doctors and researchers which lead to weaker healthcare system and less novel idea to develop their society.
 
 
 

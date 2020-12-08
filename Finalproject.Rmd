@@ -343,6 +343,13 @@ percentage changed comparing with usual linear model fit:
 0.14, 0.40, 0.19, 0.05, 0.03, 0.12, 0.12, 0.04, 0.22, 0.05, 0.06, 0.08, 0.02, 0.07
 the intercept has largest change, while the StatusDeveloping coefficient has a 40% decrease in magnitude of slope, which makes its significance decreases. Thus,the same variables do appear significant when compared to the usual linear model fit except for Status. 
 
+```{r}
+##multicollinearity
+#vif
+vif(Rmodel)
+
+```
+We can see that infant.deaths and under.five.deaths have vif > 10, which means they are probably collinear. 
 
 
 ```{r}

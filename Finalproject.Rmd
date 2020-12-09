@@ -15,15 +15,15 @@ linestretch: 1.5
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Abstract
+# Abstract
 
 This project discusses the factors influencing life expectancy based on the dataset from 2000 to 2015 for 193 countries from the World Health Organization (WHO). This dataset focuses on immunization factors, mortality factors, economic factors, social factors and other health-related factors. Assumptions for regression analysis are diagnosed to make sure no violation is presented. Data is analyzed through different linear regression methods and the final model is obtained with proper model adequacy checking performed. Model validation is performed through cross-validation and the result is satisfied. We conclude that predictors like Diphtheria coverage, adult mortality rate, infant deaths rate, HIV/AIDS rate and expenditure on health percentage have a relationship with life expectancy, and they could be used to predict life expectancy. Furthermore, country status has an impact on lifespan as well. Developing countries have overall lower life expectancy than developed countries, which is as expected.
 
-## Introduction
+# Introduction
 
 Nowadays the living standards have improved significantly in many ways. Factors including economy, education and medical condition all have developed to a new stage after the Millennium. Previous researches did not include immunization factor and human development index when analyzing factors affecting life expectancy.That brought to our attention are immunization and human development index significant in influencing life expectancy. And, what other factors would actually affect life expectancy that were not included in the past studies. If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare? Furthermore, would personal habits and lifestyle have relationship with life expectancy? Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries? What are the potential causes for a country to have a low life expectancy? We will describe the dataset by data visualization and analyze the various factors through different regression models to find out the significant predictors that have impact on predicting the life expectancy. 
 
-## Data Description
+# Data Description
 
 Our dataset consists of 22 Columns and 2938 rows, including 20 predictors that are divided into 4 broad categories: Immunization related factors, Mortality factors, Economical factors and Social factors.
 
@@ -93,19 +93,22 @@ histogram(who$Schooling)
 ```
 
 
+#  Method
 
-## Method
-
-To test if each predictor has linear relationship with life expectancy, we use t-test to investigate.
-$H0: beta_j = 0$
-$H1: beta_j != 0$
-test statistics: $t0$
-We reject H0 if $p value > alpha=0.05$ 
+To test if each predictor has linear relationship with life expectancy, we use t-test to investigate.\
+<div class="centered">
+$H0: beta_j = 0$\
+$H1: beta_j != 0$\
+</div>
+test statistics: $t0$\
+We reject H0 if $p value > alpha=0.05$\ 
 
 From the OLS summary table, we see that the p-values for percentage.expenditure, Hepatitis.B, Measles, Polio, GDP, Population, thinness 1-19 years and thinness 5-9 years are higher than alpha=0.05, which means further investigation is needed to determine whether these predictors are significant or not in predicting the life expectancy. Will checked the diagonal of the hat matrix, only two observations have leverages higher than 0.2 , that may have the potential to be influential. However, given the large dataset, the rest of the observations have small leverages. Since none of these observations had large residuals, so we need to investigate a little more.
 
 From stepwise regression, we get a final model that has 14 out of the 20 possible predictors. The figure sizes have been customized so that it's easily to put two images side-by-side.
 
+
+### Summary model
 ```{r, fig.show='hold' ,results='hide'}
 #checked the  model
 summodel <-  summary(model)
@@ -113,6 +116,8 @@ summodel <-  summary(model)
 #thinness..1.19.years  and thinness.5.9.years larger than 0.05
 ```
 
+
+### Unit length scaling
 
 Due to different scaling in the dataset 'who' , it is difficult to compare regression coefficients because the magnitude of betaj reflects the units of measurement of the regressor xj. For this reason it is helpful to work with the scaled regressors and response variable.
 Here we will use Unit Length Scaling:
@@ -176,18 +181,15 @@ summary(LifeSRModel)
 LifeSRModel$coefficients
 
 ```
-
-After standardized and summary the model. We construct the hypothesis test:
-
-hypothesis test
-F test 
-2.2e-16 < 0.05, reject H0, at least 1 predictor is useful. 
-
-t test
-for the predictors with p value > 0.05, we investigate them independently. 
+After standardized and summary the model. We construct the hypothesis test:\
+F test :\
+2.2e-16 < 0.05, reject H0, at least 1 predictor is useful. \
+T test :\
+for the predictors with p value > 0.05, we investigate them independently.\ 
 
 Based on the hypothesis test, we conclude that z_percentage.expenditure , z_Hepatitis.B , z_Measles , Polio , GDP , Population , thinness..1.19.years and thinness.5.9.years has p-value larger than 0.05.
 
+### SLM with life expectancy
 Thus, we will use these 8 predictor to fit the SLM with Life.expectancy_s to see if they have relationships.
 ```{r,results='hide'}
 #Life.expectancy_s and percentage.expenditure
@@ -223,9 +225,9 @@ lt5 <- lm( Life.expectancy_s ~ z19 )
 summary(lt5)
 
 ```
-
 Conclusion:
 Based on the model we fitted, the population has $p-value > 0.05$ when fitting simple linear regression line with life expectancy,so coefficient of population is close to 0. Thus population is not strongly linearly related with life expectancy. We can remove population from the model then. 
+
 
 Remove the population predictor from the model:
 ```{r,results='hide'}
@@ -241,6 +243,7 @@ summary(modelO)
 After remove the population predictor from the model, we find out the model contain the population and the model without population, their estimate coefficient and R-squared does not have significant changes. Thus, we conclude that population does not affect the Life expectancy.
 
 
+### Stepwise function
 Here we use stepwise to select validate variable:
 ```{r,results='hide'}
 ##stepwise
@@ -257,12 +260,15 @@ summary(newmodel)
 ```
 We removed 6 predictors from the model, since those predictors are not acting important roles in our model fitting.
 
+
+### Confidence  interval:
 ```{r,results='hide'}
 ## confidence interval ##
 confint( newmodel , level = 0.9 )
 ```
 
 
+### Residual analysis:
 Then we do residual analysis on the new model generated. 
 ```{r  , fig.show = 'hide'}
 ## residual analysis ##
@@ -286,9 +292,10 @@ The second plot (Normal Q-Q plot) has an approximately straight line, thus the m
 
 
 
-leverage and influence
-hat matrix: $H = X(X'X)^(-1)X'$
-hii:diagonal of hat matrix
+### Leverage and influence: 
+
+hat matrix: $H = X(X'X)^(-1)X'$\
+hii:diagonal of hat matrix\
 If $hii > 2p/n$ then the ith observation can be considered a leverage point.
 Here we will use influence() function , using the model object as it's only argument.
 ```{r,results='hide'}
@@ -300,8 +307,9 @@ sort(newmodel_influence$hat, decreasing = TRUE)
 Based on the result, there are 68 observations have leverages higher than 0.02545455. Even though, many observation have larger leverage point than 0.02545455 but they are still very close to 0.02545455. Typically a point which has high leverage paired with a large residual it is likely to be influential. None of the observation had larger residuals, so we need to dig a little more.
 
 
-cook's distance
-$Di = (ri^2/p)(hii/(1-hii))$
+### Cook's distance:
+
+$Di = (ri^2/p)(hii/(1-hii))$\
 points with Di > 1 are considered to be influential.
 ```{r,results='hide'}
 #cook's distance
@@ -317,7 +325,9 @@ The observations 1880, 2306, 2300, 1901, 1902, 2503 are potential outliers.
 There's no point beyond cook's distance according to the leverage plot. 
 
 Our model contains 2 outliers, we will use robust regression to dampen the impact of highly influential observations and also violations in model assumptions.
-Here we use Robust regression:
+
+### Robust regression:
+
 ```{r,fig.show = 'hide',results='hide'}
 #There is potential outlier, so we use robust
 #robust
@@ -338,6 +348,8 @@ percentage changed comparing with usual linear model fit:
 0.14, 0.40, 0.19, 0.05, 0.03, 0.12, 0.12, 0.04, 0.22, 0.05, 0.06, 0.08, 0.02, 0.07
 the intercept has largest change, while the StatusDeveloping coefficient has a 40% decrease in magnitude of slope, which makes its significance decreases. Thus,the same variables do appear significant when compared to the usual linear model fit except for Status. 
 
+### VIF:
+
 ```{r,results='hide'}
 ##multicollinearity
 #vif
@@ -346,6 +358,8 @@ vif(Rmodel)
 ```
 We can see that infant.deaths and under.five.deaths have vif > 10, which means they are probably collinear. 
 
+
+### Cross validation:
 
 ```{r,results='hide'}
 ## model validation ##
@@ -383,9 +397,9 @@ The RMSPE after standardization is around 0.40, which is fine but not enough clo
 Thus the model is generally valid. 
 
 
-## Results
+# Results
 
-We compared the 8 potential predictors considered to have no linear relationship with life expectancy. Thus, we use the SLM to compare each predictors with life expectancy and we find out population is the only predictor that does not have a linear relationship with life expectancy. After removing the population predictor, we compared the full model with the reduced model and the result does not have significant changes. Thus, proof indicated population as a predictor does not have an impact on our model. Moreover, since we want to fit a better regression model, we used stepwise function and the result shows that there are 6 predictors (thinness..1.19.years,Population,Hepatitis.B,GDP,Measles,Polio) that have no significant relationship with life expectancy. We performed residual analysis to find out that our new model (after removing the 6 predictors) has a constant variance and linearity. Therefore, we do not need transformation for our model. After the calculation on leverage and cook's distance, we figured out that the cook's distance are less than 1 for all observations. In the end, we tried robust regression to fit our final model to dampen the impact of highly influential observations and also violations in model assumptions.
+We compared the 8 potential predictors considered to have no linear relationship with life expectancy. Thus, we use the SLM to compare each predictors with life expectancy and we find out population is the only predictor that does not have a linear relationship with life expectancy. After removing the population predictor, we compared the full model with the reduced model and the result does not have significant changes. This indicated that the population predictor does not have a significant impact on our model. Moreover, since we want to fit a better regression model, we used stepwise function and the result shows that there are 6 predictors (thinness..1.19.years,Population,Hepatitis.B,GDP,Measles,Polio) that have no significant relationship with life expectancy. We performed residual analysis to find out that our new model (after removing the 6 predictors) has a constant variance and linearity. Therefore, we do not need transformation for our model. After the calculation on leverage and cook's distance, we figured out that the cook's distance are less than 1 for all observations. In the end, we tried robust regression to fit our final model to dampen the impact of highly influential observations and also violations in model assumptions.
 
 ## Conclusion
 
@@ -394,7 +408,7 @@ From the analysis, we conclude that predictors like Diphtheria coverage, adult m
 We removed Hepatitis.B and Polio from the model and we can conclude that immunization factor do not significantly influencing the life expectancy. However, the Diphtheria, adult mortality, infant deaths, HIV/AIDS and percentage.expenditure have relationship with life expectancy. Thus, we can conclude that lifespan can be improved if government spend more expenditure on healthcare. Besides, personal habits and lifestyle would have relationship with life expectancy, like the predictor Alcohol would have an impact on human's lifespan. Moreover, based on our model, we figured out that GDP does not have a significant relationship with life expectancy, but the predictor income composition do have a significant relationship with life expectancy. Economical factor is also related to total expenditure and percentage.expenditure. In a word, we consider economical factors that are associated with government expenditure would have a significant effect on life expectancy. We also reckon education is a potential cause for a country to have a lower life expectancy, since a country with poor educational system would have less possibility to educate more excellent young individuals. Thus, there will be less professional doctors and researchers in the society, which would lead to a weak healthcare system.
 
 
-## Appendix
+# Appendix
 
 All data and R codes are attached below for reproducibility.
 

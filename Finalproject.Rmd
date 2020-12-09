@@ -43,6 +43,9 @@ Population: 321812.0625, thinness..1.19.years: 4.6375, thinness.5.9.years: 4.025
 From the added variable plots, we can see that predictors like infant.deaths, percentage.expenditure, Measles, under.five.deaths, GDP, Population, thinness..1.19.years and thinness.5.9.years seem to have no significant linear relationship with life expectancy.
 From the pairwise correlation data, there are several variables collinear with each other (they have correlation close to 1). These highly collinearly related variable pairs are under.five.deaths and infant.deaths, GDP and percentage.expenditure, thinness.5.9.years and thinness..1.19.years.
 
+The histograms generated show that Life.expectancy, Total.expenditure, Income.composition.of.resources and Schooling are bell-shaped and distributed roughly equal from left to right. The distribution graphs for infant.deaths, percentage.expenditure, Measles, under.five.deaths, HIV.AIDS, GDP and Population have one bar that is dominant, indicate that the majority countries have similar conditions. Graphs for Hepatitis.B, Polio and Diphtherian show that the majority countries have a high coverage for immunization.
+
+
 
 
 ```{r}

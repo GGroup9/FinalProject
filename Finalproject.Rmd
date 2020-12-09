@@ -86,6 +86,25 @@ avPlots(model)
 #check pairwise correlations
 cor(who[,-c(1,2)])
 
+histogram(who$Life.expectancy)
+histogram(who$Adult.Mortality)
+histogram(who$infant.deaths)
+histogram(who$Alcohol)
+histogram(who$percentage.expenditure)
+histogram(who$Hepatitis.B)
+histogram(who$Measles)
+histogram(who$BMI)
+histogram(who$under.five.deaths)
+histogram(who$Polio)
+histogram(who$Total.expenditure)
+histogram(who$Diphtheria)
+histogram(who$HIV.AIDS)
+histogram(who$GDP)
+histogram(who$Population)
+histogram(who$thinness..1.19.years)
+histogram(who$thinness.5.9.years)
+histogram(who$Income.composition.of.resources)
+histogram(who$Schooling)
 ```
 
 

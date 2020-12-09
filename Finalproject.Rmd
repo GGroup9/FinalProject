@@ -606,7 +606,7 @@ plot( newmodel$residuals[1:(n-1)] , newmodel$residuals[2:n])
 plot(newmodel)
 ```
 
-```{r,results='hide'}
+```{r,results='hide',fig.show='hide'}
 #leverage and influence
 2*ncol(who)/nrow(who)  #0.02545455
 newmodel_influence <- influence(newmodel)

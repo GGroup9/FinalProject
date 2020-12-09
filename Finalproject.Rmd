@@ -17,8 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Abstract
 
-This project discusses the factors influencing life expectancy, health factors for 193 countries based on the dataset provided by the Global Health Observatory(GHO) data repository under World Health Organization(WHO). In this project we consider data from 2000 to 2015 for 193 countries which focus on immunization factors, mortality factors, economic factors, social factors and other health related factors as well for further analysis. 
-There are 22 columns and 2930 rows in the dataset file `Life Expectancy Data.csv`.
+This project discusses the factors influencing life expectancy based on the dataset from 2000 to 2015 for 193 countries from the World Health Organization (WHO). This dataset focuses on immunization factors, mortality factors, economic factors, social factors and other health-related factors. Assumptions for regression analysis are diagnosed to make sure no violation is presented. Data is analyzed through different linear regression methods and the final model is obtained with proper model adequacy checking performed. Model validation is performed through cross-validation and the result is satisfied. We conclude that predictors like Diphtheria coverage, adult mortality rate, infant deaths rate, HIV/AIDS rate and expenditure on health percentage have a relationship with life expectancy, and they could be used to predict life expectancy. Furthermore, country status has an impact on lifespan as well. Developing countries have overall lower life expectancy than developed countries, which is as expected.
 
 ## Introduction
 

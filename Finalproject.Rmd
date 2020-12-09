@@ -407,23 +407,9 @@ Then we used residual analysis to find out that our new model(after removing the
 
 ## Conclusion
 
-1.If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare?
+From the analysis, we conclude that predictors like Diphtheria coverage, adult mortality rate, infant deaths rate, HIV/AIDS rate and expenditure on health percentage have a significant power in predicting life expectancy. Furthermore, country status would have an effect on lifespan as well. Life expectancy in developing countries is lower than Life expectancy in developed countries.
 
-We removed Hepatitis.B and Polio from the model and we can conclude that immunization factor do not significantly influencing the life expectancy. However, the Diphtheria, adult mortality, infant deaths, HIV/AIDS and percentage.expenditure have relationship with life expectancy. Thus we can conclude that lifespan can be improved if government spend more expenditure on healthcare.
-
-2.Would personal habits and lifestyle have relationship with life expectancy?
-
-The personal habits and lifestyle would have relationship with life expectancy, like the predictor Alcohol would have impact on human's life expectancy.
-
-
-3.Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries?
-
-Based on our model, we see that GDP do not have significant relationship with life expectancy, but the predictor income composition do have significant relationship with life expectancy. Economical factor also related to total expenditure and percentage.expenditure. Thus, we think the economical factor that associated with government and government expenditure would have significant effect on life expectancy. Moreover, we can conclude developing countries have lower life expectancy than developed countries, since the government in developed countries would have a better welfare for their people.
-
-
-4.What are the potential causes for a country to have a low life expectancy?
-
-We think education is a potential causes for a country to have a lower life expectancy. As the country with weak education system would have less possibility to educate more excellent young people. Thus, they will have less professional doctors and researchers which lead to weaker healthcare system and less novel idea to develop their society.
+We removed Hepatitis.B and Polio from the model and we can conclude that immunization factor do not significantly influencing the life expectancy. However, the Diphtheria, adult mortality, infant deaths, HIV/AIDS and percentage.expenditure have relationship with life expectancy. Thus, we can conclude that lifespan can be improved if government spend more expenditure on healthcare. Besides, personal habits and lifestyle would have relationship with life expectancy, like the predictor Alcohol would have an impact on human's lifespan. Moreover, based on our model, we figured out that GDP does not have a significant relationship with life expectancy, but the predictor income composition do have a significant relationship with life expectancy. Economical factor is also related to total expenditure and percentage.expenditure. In a word, we consider economical factors that are associated with government expenditure would have a significant effect on life expectancy. We also reckon education is a potential cause for a country to have a lower life expectancy, since a country with poor educational system would have less possibility to educate more excellent young individuals. Thus, there will be less professional doctors and researchers in the society, which would lead to a weak healthcare system.
 
 
 ## Appendix

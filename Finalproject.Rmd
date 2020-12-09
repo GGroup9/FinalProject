@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### github website
 
-https://github.com/GGroup9/FinalProject.git \
+https://github.com/GGroup9/FinalProject.git 
 https://github.com/GGroup9/FinalProject
 
 

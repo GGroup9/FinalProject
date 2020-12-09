@@ -57,6 +57,13 @@ who <- read.csv(file = "Life Expectancy Data.csv", header=TRUE)
 
 attach(who)
 
+#remove Country since we are not focusing on specific countries in this research
+who <- who[,-c(1)]
+# exclude missing values (Remove Rows with Missing Data)
+who = who[complete.cases(who),]
+# 1289 observations were deleted
+# 1650 observations remaining
+
 model <- lm(Life.expectancy~., data = who)
 
 avPlots(model)

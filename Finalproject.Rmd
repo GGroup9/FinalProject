@@ -3,10 +3,10 @@ title: "Final Project"
 author: "Zhaojin Zhu, Zhijia Ju, Yifei Wang, Zhiyi Xie"
 date: "2020/11/29"
 output:
+  pdf_document: default
+  word_document: default
   html_document:
     df_print: paged
-  word_document: default
-  pdf_document: default
 urcolor: blue
 linestretch: 1.5
 ---
@@ -69,14 +69,16 @@ who <- who[,-c(1)]
 who = who[complete.cases(who),]
 # 1289 observations were deleted
 # 1650 observations remaining
-
+ 
 model <- lm(Life.expectancy~., data = who)
 
 avPlots(model)
 
 #check pairwise correlations
 cor(who[,-c(1,2)])
-
+```
+```{r ,results = 'hide',fig.height = 2, fig.width = 2,figures-side,fig.show="hold"}
+par(mar = c(4, 4, .1, .1))
 histogram(who$Life.expectancy)
 histogram(who$Adult.Mortality)
 histogram(who$infant.deaths)

@@ -29,31 +29,6 @@ This project discusses the factors influencing life expectancy based on the data
 
 Nowadays the living standards have improved significantly in many ways. Factors including economy, education and medical condition all have developed to a new stage after the Millennium. Previous researches did not include immunization factor and human development index when analyzing factors affecting life expectancy.That brought to our attention are immunization and human development index significant in influencing life expectancy. And, what other factors would actually affect life expectancy that were not included in the past studies. If immunization factor turns out to be significant in influencing life expectancy, could lifespan be improved if government spend more expenditure on healthcare? Furthermore, would personal habits and lifestyle have relationship with life expectancy? Would economical factor have an effect on life expectancy, that is, do developing countries have lower life expectancy than developed countries? What are the potential causes for a country to have a low life expectancy? We will describe the dataset by data visualization and analyze the various factors through different regression models to find out the significant predictors that have impact on predicting the life expectancy. 
 
-# Data Description
-
-Our dataset consists of 22 Columns and 2938 rows, including 20 predictors that are divided into 4 broad categories: Immunization related factors, Mortality factors, Economical factors and Social factors.
-
-Immunization related factors contains Hepatitis B (HepB immunization coverage among 1-year-old), Measles (number of reported cases per 1000 population), Polio (Pol3 immunization coverage among 1-year-old), Diphtheria (Diphtheria tetanus toxoid and pertussis, DTP3, immunization coverage among 1-year-old), HIV AIDS (Deaths per 1000 live births HIV/AIDS from 0 to 4 years old).
-
-Mortality factors contains Adult Mortality (Adult Mortality Rates of both sexes), Infant Deaths (Number of Infant Deaths per 1000 population), Under Five Deaths (Number of under-five deaths per 1000 population).
-
-Economical factors contains Country, Status (developing or developed), Percentage Expenditure (Expenditure on health as a percentage of Gross Domestic Product per capita), Total Expenditure (General government expenditure on health as a percentage of total government expenditure), GDP (Gross Domestic Product per capita), Population (Population of the country), Income Composition of Resources (Human Development Index in terms of income composition of resources).
-
-Social factors contains Year (the year of the data), Alcohol (recorded per capita (15+) consumption), BMI (Average Body Mass Index of entire population), Thinness 1-19 Years (Prevalence of thinness among children and adolescents for Age 10 to 19), Thinness 5-9 Years (Prevalence of thinness among children for Age 5 to 9), Schooling (Number of years of Schooling).
-
-If we consider the Country predictor as a detailed subset of the Status predictor, we could remove the Country predictor and only focus on the developing and developed status for constructing a general idea regardless of a specific country. However, if we want to know the life expectancy of a specific country, we could include the specific country value from the Country predictor.
-
-We would like to introduce one new additional data point into our dataset. The values for this unique data point is as follows. Country:China, Year:2015, Status:Developing, Life expectancy:74.2625, Adult Mortality:73.75, infant deaths: 294.875, Alcohol:4.182, percentage.expenditure: 78.48934709, Hepatitis.B: 80.4375, Measles: 65857.9375, BMI: 21.80625, under.five.deaths: 350, Polio: 93.6875, Total.expenditure: 4.918, Diphtheria: 93.3125, HIV.AIDS: 0.1, GDP: 2345.303158,
-Population: 321812.0625, thinness..1.19.years: 4.6375, thinness.5.9.years: 4.025, Income.composition.of.resources: 0.66025, Schooling: 11.4375. These values are calculated based on the average values for each predictor from 2000 to 2015 for the country of China. Our modified dataset now consists of 22 Columns and 2939 rows.
-
-From the added variable plots, we can see that predictors like infant.deaths, percentage.expenditure, Measles, under.five.deaths, GDP, Population, thinness..1.19.years and thinness.5.9.years seem to have no significant linear relationship with life expectancy.
-From the pairwise correlation data, there are several variables collinear with each other (they have correlation close to 1). These highly collinearly related variable pairs are under.five.deaths and infant.deaths, GDP and percentage.expenditure, thinness.5.9.years and thinness..1.19.years.
-
-The histograms generated show that Life.expectancy, Total.expenditure, Income.composition.of.resources and Schooling are bell-shaped and distributed roughly equal from left to right. The distribution graphs for infant.deaths, percentage.expenditure, Measles, under.five.deaths, HIV.AIDS, GDP and Population have one bar that is dominant, indicate that the majority countries have similar conditions. Graphs for Hepatitis.B, Polio and Diphtherian show that the majority countries have a high coverage for immunization.
-
-
-
-
 ```{r ,results = 'hide'}
 library(tidyverse)
 library(car)
@@ -99,6 +74,33 @@ histogram(who$thinness.5.9.years)
 histogram(who$Income.composition.of.resources)
 histogram(who$Schooling)
 ```
+
+# Data Description
+
+Our dataset consists of 22 Columns and 2938 rows, including 20 predictors that are divided into 4 broad categories: Immunization related factors, Mortality factors, Economical factors and Social factors.
+
+Immunization related factors contains Hepatitis B (HepB immunization coverage among 1-year-old), Measles (number of reported cases per 1000 population), Polio (Pol3 immunization coverage among 1-year-old), Diphtheria (Diphtheria tetanus toxoid and pertussis, DTP3, immunization coverage among 1-year-old), HIV AIDS (Deaths per 1000 live births HIV/AIDS from 0 to 4 years old).
+
+Mortality factors contains Adult Mortality (Adult Mortality Rates of both sexes), Infant Deaths (Number of Infant Deaths per 1000 population), Under Five Deaths (Number of under-five deaths per 1000 population).
+
+Economical factors contains Country, Status (developing or developed), Percentage Expenditure (Expenditure on health as a percentage of Gross Domestic Product per capita), Total Expenditure (General government expenditure on health as a percentage of total government expenditure), GDP (Gross Domestic Product per capita), Population (Population of the country), Income Composition of Resources (Human Development Index in terms of income composition of resources).
+
+Social factors contains Year (the year of the data), Alcohol (recorded per capita (15+) consumption), BMI (Average Body Mass Index of entire population), Thinness 1-19 Years (Prevalence of thinness among children and adolescents for Age 10 to 19), Thinness 5-9 Years (Prevalence of thinness among children for Age 5 to 9), Schooling (Number of years of Schooling).
+
+If we consider the Country predictor as a detailed subset of the Status predictor, we could remove the Country predictor and only focus on the developing and developed status for constructing a general idea regardless of a specific country. However, if we want to know the life expectancy of a specific country, we could include the specific country value from the Country predictor.
+
+We would like to introduce one new additional data point into our dataset. The values for this unique data point is as follows. Country:China, Year:2015, Status:Developing, Life expectancy:74.2625, Adult Mortality:73.75, infant deaths: 294.875, Alcohol:4.182, percentage.expenditure: 78.48934709, Hepatitis.B: 80.4375, Measles: 65857.9375, BMI: 21.80625, under.five.deaths: 350, Polio: 93.6875, Total.expenditure: 4.918, Diphtheria: 93.3125, HIV.AIDS: 0.1, GDP: 2345.303158,
+Population: 321812.0625, thinness..1.19.years: 4.6375, thinness.5.9.years: 4.025, Income.composition.of.resources: 0.66025, Schooling: 11.4375. These values are calculated based on the average values for each predictor from 2000 to 2015 for the country of China. Our modified dataset now consists of 22 Columns and 2939 rows.
+
+From the added variable plots, we can see that predictors like infant.deaths, percentage.expenditure, Measles, under.five.deaths, GDP, Population, thinness..1.19.years and thinness.5.9.years seem to have no significant linear relationship with life expectancy.
+From the pairwise correlation data, there are several variables collinear with each other (they have correlation close to 1). These highly collinearly related variable pairs are under.five.deaths and infant.deaths, GDP and percentage.expenditure, thinness.5.9.years and thinness..1.19.years.
+
+The histograms generated show that Life.expectancy, Total.expenditure, Income.composition.of.resources and Schooling are bell-shaped and distributed roughly equal from left to right. The distribution graphs for infant.deaths, percentage.expenditure, Measles, under.five.deaths, HIV.AIDS, GDP and Population have one bar that is dominant, indicate that the majority countries have similar conditions. Graphs for Hepatitis.B, Polio and Diphtherian show that the majority countries have a high coverage for immunization.
+
+
+
+
+
 
 
 #  Method
